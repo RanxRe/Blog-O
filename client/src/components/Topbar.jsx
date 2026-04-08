@@ -4,6 +4,7 @@ import { AiOutlineLogin } from "react-icons/ai";
 import { Button } from './ui/button'
 import { Link } from 'react-router'
 import SearchBox from './SearchBox';
+import { RouteSignIn } from '@/helpers/routeName';
 
 const Topbar = () => {
     return (
@@ -18,7 +19,7 @@ const Topbar = () => {
 
             <div >
                 <Button className="rounded-full" >
-                    <Link to={"/login"} className='flex items-center gap-2 whitespace-nowrap' >
+                    <Link to={RouteSignIn} className='flex items-center gap-2 whitespace-nowrap' >
                         <AiOutlineLogin />
                         Sign In</Link>
                 </Button>
