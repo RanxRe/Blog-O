@@ -7,8 +7,10 @@ import { Button } from "@/components/ui/button"
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
-import { Link } from 'react-router'
-import { RouteSignUp } from '@/helpers/routeName'
+import { Link, useNavigate } from 'react-router'
+import { RouteIndex, RouteSignUp } from '@/helpers/routeName'
+import { getEnvName } from '@/helpers/getEnvName'
+import { showToast } from '@/helpers/showToast'
 
 const formSchema = z.object({
     email: z.email("Enter a valid email address"),
@@ -16,6 +18,8 @@ const formSchema = z.object({
 })
 
 const SignIn = () => {
+
+    const navigate = useNavigate()
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -25,7 +29,24 @@ const SignIn = () => {
         }
     })
 
-    function onSubmit(values) {
+    async function onSubmit(values) {
+        try {
+            const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/auth/signin`, {
+                method: 'post',
+                headers: { 'Content-type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(values)
+            })
+            const data = await response.json()
+            if (!response.ok) {
+                showToast('error', data.message)
+                return
+            }
+            navigate(RouteIndex)
+            showToast('success', data.message)
+        } catch (error) {
+            showToast('error', error.message)
+        }
         console.log(values)
     }
 

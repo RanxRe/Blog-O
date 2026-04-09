@@ -6,4 +6,6 @@ export const ENV = {
   NODE_ENV: process.env.NODE_ENV,
   CLIENT_URL: process.env.CLIENT_URL,
   MONGO_URI: process.env.MONGO_URI,
+  DB_NAME: process.env.DB_NAME,
+  JWT_SECRET: process.env.JWT_SECRET,
 };
