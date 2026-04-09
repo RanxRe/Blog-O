@@ -3,6 +3,8 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import cors from "cors";
 import { ENV } from "./lib/env.js";
+import { errorHandler } from "./middlewares/errorMiddleware.js";
+import { authRouter } from "./routes/auth.routes.js";
 
 const app = express();
 
@@ -18,8 +20,8 @@ app.use(
 );
 
 // ROUTES
-app.use("/", (req, res) => {
-  res.send("Hello from server");
-});
+app.use("/api/auth", authRouter);
 
+// ERROR MIDDLEWARE :- error mdlwrs must be at last
+app.use(errorHandler);
 export default app;

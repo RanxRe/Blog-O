@@ -7,8 +7,12 @@ import { Button } from "@/components/ui/button"
 import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { RouteSignIn } from '@/helpers/routeName'
+import { getEnvName } from '@/helpers/getEnvName'
+import { showToast } from '@/helpers/showToast'
+import GoogleLogin from '@/components/GoogleLogin'
+
 
 const formSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
@@ -23,6 +27,8 @@ const formSchema = z.object({
 
 const SignUp = () => {
 
+    const navigate = useNavigate()
+
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -33,13 +39,29 @@ const SignUp = () => {
         }
     })
 
-    function onSubmit(values) {
+    async function onSubmit(values) {
+        try {
+            const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/auth/signup`, {
+                method: 'post',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(values)
+            })
+            const data = await response.json()
+            if (!response.ok) {
+                showToast('error', data.message)
+                return
+            }
+            navigate(RouteSignIn)
+            showToast('success', data.message)
+        } catch (error) {
+            showToast('error', error.message)
+        }
         console.log(values)
     }
 
     return (
-        <div className='flex justify-center items-center h-screen w-screen'>
-            <Card className="w-full md:max-w-md">
+        <div className='flex justify-center items-center h-screen w-screen my-5'>
+            <Card className="w-full md:max-w-md p-4">
                 <CardHeader>
                     <CardTitle>Create your account</CardTitle>
                     <CardDescription>
@@ -47,6 +69,12 @@ const SignUp = () => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
+                    <div className=''>
+                        <GoogleLogin />
+                        <div className='border-t-2 my-5 flex justify-center items-center'>
+                            <span className='absolute bg-white text-sm' >OR</span>
+                        </div>
+                    </div>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <FieldGroup>
                             {/* NAME FIELD */}
