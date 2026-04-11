@@ -15,6 +15,7 @@ import logo from "@/assets/images/brand-logo-light.png"
 import { AiOutlineUnorderedList, AiOutlineHome, AiOutlineComment, AiOutlineUser } from "react-icons/ai";
 import { ImPencil2 } from "react-icons/im";
 import { GoDot } from "react-icons/go";
+import { RouteCategoriesDetails } from '@/helpers/routeName';
 
 const AppSidebar = () => {
 
@@ -35,7 +36,7 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <AiOutlineUnorderedList />
-                                <Link className="flex items-center gap-2 w-full" to={""} >Categories</Link>
+                                <Link className="flex items-center gap-2 w-full" to={RouteCategoriesDetails} >Categories</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
