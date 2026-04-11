@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field"
@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 
-import { z } from 'zod'
+import { file, set, z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { getEnvName } from '@/helpers/getEnvName'
 import { showToast } from '@/helpers/showToast'
@@ -15,17 +15,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { CameraIcon, User2Icon } from 'lucide-react'
 import { useFetch } from '@/hooks/useFetch'
 import Loading from '@/components/Loading'
+import Dropzone from 'react-dropzone'
+import { setUser } from '@/redux/user/user.slice'
 
 
 const formSchema = z.object({
     name: z.string("Enter a valid email address").min(3, "Name is too short"),
     email: z.email("Enter a valid email address"),
     bio: z.string("Enter a valid email address").min(10, "Bio must contain at least 10 character long").max(200, "Bio is too long (200 words max)."),
-    password: z.string() // optional
+    password: z.string().min(8, "Password must be at least 8 characters long") // optional
 })
 
 const Profile = () => {
 
+    const [filePreview, setFilePreview] = useState()
+    const [file, setFile] = useState()
     const user = useSelector((state) => state.user)
     const { data: userData, loading, error } = useFetch(`${getEnvName("VITE_API_BASE_URL")}/user/get-user-detail/${user?.user?._id}`,
         {
@@ -55,13 +59,28 @@ const Profile = () => {
         }
     }, [userData])
 
+    useEffect(() => {
+        return () => {
+            if (filePreview) {
+                URL.revokeObjectURL(filePreview)
+            }
+        }
+    }, [filePreview])
+
     async function onSubmit(values) {
         try {
-            const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/auth/signin`, {
-                method: 'post',
-                headers: { 'Content-type': 'application/json' },
+            const formData = new FormData()
+            // for media append
+            formData.append('file', file)
+            // for text data, values should be srnt in JSON string
+            formData.append('data', JSON.stringify(values))
+
+            const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/user/update-user/${userData.user._id}`, {
+                method: 'put',
+                // headers: { 'Content-type': 'application/json' }, will be multipart data which is done automatically so removing it
                 credentials: 'include',
-                body: JSON.stringify(values)
+                // formData will be sent from bofy
+                body: formData
             })
             const data = await response.json()
             if (!response.ok) {
@@ -77,19 +96,38 @@ const Profile = () => {
         console.log(values)
     }
 
+    const handleFileSelection = (files) => {
+        if (!files || files.length == 0) return
+        const file = files[0]
+        const preview = URL.createObjectURL(file)
+        // need to send file(image) into form so we are setting it into file variable
+        setFile(file)
+        setFilePreview(preview)
+    }
+
     if (loading) return <Loading />
 
     return (
         <Card className="max-w-screen-md mx-auto">
             <CardContent>
                 <div className='flex justify-center items-center mt-10'>
-                    <Avatar className="w-28 h-28 relative group">
-                        <AvatarImage src={userData?.user?.avatar} />
-                        <div className='absolute z-50 w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center overflow-hidden border-4 border-stone-400 cursor-pointer rounded-full group-hover:flex hidden'>
-                            <CameraIcon className='text-gray-400' />
-                        </div>
-                        <AvatarFallback>{<User2Icon />}</AvatarFallback>
-                    </Avatar>
+
+                    <Dropzone onDrop={acceptedFiles => handleFileSelection(acceptedFiles)}>
+                        {({ getRootProps, getInputProps }) => (
+
+                            <div {...getRootProps()}>
+                                <input {...getInputProps()} />
+                                <Avatar className="w-28 h-28 relative group">
+                                    <AvatarImage src={filePreview ? filePreview : userData?.user?.avatar} />
+                                    <div className='absolute z-50 w-full h-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center overflow-hidden border-4 border-stone-400 cursor-pointer rounded-full group-hover:flex hidden'>
+                                        <CameraIcon className='text-gray-400' />
+                                    </div>
+                                    <AvatarFallback>{<User2Icon />}</AvatarFallback>
+                                </Avatar>
+                            </div>
+
+                        )}
+                    </Dropzone>
 
                 </div>
                 <div>
