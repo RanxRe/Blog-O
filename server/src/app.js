@@ -5,6 +5,7 @@ import cors from "cors";
 import { ENV } from "./lib/env.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { authRouter } from "./routes/auth.routes.js";
+import { userRouter } from "./routes/user.routes.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(
 
 // ROUTES
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 // ERROR MIDDLEWARE :- error mdlwrs must be at last
 app.use(errorHandler);

@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router"
 import Layout from "./Layout/Layout"
-import { RouteErrorPage, RouteIndex, RouteSignIn, RouteSignUp } from "./helpers/routeName"
+import { RouteErrorPage, RouteIndex, RouteProfile, RouteSignIn, RouteSignUp } from "./helpers/routeName"
 import Index from "./pages/Index"
 import SignUp from "./pages/SignUp"
 import SignIn from "./pages/SignIn"
 import Error from "./pages/Error"
+import Profile from "./pages/Profile"
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path={RouteIndex} element={<Layout />}>
           <Route index element={<Index />} />
+          <Route path={RouteProfile} element={<Profile />} />
         </Route>
         {/* dont want Layout to be seen in signup & signin page that why creating route separately*/}
         <Route path={RouteSignUp} element={<SignUp />} />

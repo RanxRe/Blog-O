@@ -11,6 +11,9 @@ import { Link, useNavigate } from 'react-router'
 import { RouteIndex, RouteSignUp } from '@/helpers/routeName'
 import { getEnvName } from '@/helpers/getEnvName'
 import { showToast } from '@/helpers/showToast'
+import { useDispatch } from 'react-redux'
+import { setUser } from '@/redux/user/user.slice'
+import GoogleLogin from '@/components/GoogleLogin'
 
 const formSchema = z.object({
     email: z.email("Enter a valid email address"),
@@ -19,6 +22,7 @@ const formSchema = z.object({
 
 const SignIn = () => {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const form = useForm({
@@ -42,6 +46,7 @@ const SignIn = () => {
                 showToast('error', data.message)
                 return
             }
+            dispatch(setUser(data.user))
             navigate(RouteIndex)
             showToast('success', data.message)
         } catch (error) {
@@ -51,7 +56,8 @@ const SignIn = () => {
     }
 
     return (
-        <div className='flex justify-center items-center h-screen w-screen'>
+        <div className='flex justify-center gap-2 items-center h-screen w-screen'>
+            <div className=' md:w-100' ><img src="src/assets/images/brand-logo-light.png" alt="logo" /></div>
             <Card className="w-full md:max-w-md">
                 <CardHeader>
                     <CardTitle>Sign In</CardTitle>
@@ -60,6 +66,12 @@ const SignIn = () => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
+                    <div className=''>
+                        <GoogleLogin />
+                        <div className='border-t-2 my-5 flex justify-center items-center'>
+                            <span className='absolute bg-white text-sm' >OR</span>
+                        </div>
+                    </div>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <FieldGroup>
                             {/* EMAIL FIELD */}
