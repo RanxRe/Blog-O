@@ -51,7 +51,7 @@ export const login = async (req, res, next) => {
     if (!comparePassword) {
       return next(handleError(404, "invalid login credentials"));
     }
-    // 🔥 REMOVE PASSWORD BEFORE RESPONSE
+    //  REMOVE PASSWORD BEFORE RESPONSE
     const { password: pass, ...userWithoutPassword } = user._doc;
 
     const token = jwt.sign(
@@ -101,7 +101,7 @@ export const googleLogin = async (req, res, next) => {
       user = await newUser.save();
     }
 
-    // 🔥 REMOVE PASSWORD BEFORE RESPONSE
+    // REMOVE PASSWORD BEFORE RESPONSE
     const { password: pass, ...userWithoutPassword } = user._doc;
 
     const token = jwt.sign(
@@ -126,6 +126,24 @@ export const googleLogin = async (req, res, next) => {
       success: true,
       message: "sign in successfully ",
       user: userWithoutPassword,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+export const logout = async (req, res, next) => {
+  try {
+    res.clearCookie("access-token", {
+      httpOnly: true,
+      secure: ENV.NODE_ENV === "production",
+      sameSite: ENV.NODE_ENV === "production" ? "none" : "strict",
+      path: "/", //access cookie on every URL
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
     });
   } catch (error) {
     next(handleError(500, error.message));

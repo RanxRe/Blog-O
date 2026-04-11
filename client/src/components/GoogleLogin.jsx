@@ -7,9 +7,12 @@ import { getEnvName } from '@/helpers/getEnvName';
 import { showToast } from '@/helpers/showToast';
 import { useNavigate } from 'react-router';
 import { RouteIndex } from '@/helpers/routeName';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/redux/user/user.slice';
 
 const GoogleLogin = () => {
 
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleLogin = async () => {
@@ -22,7 +25,7 @@ const GoogleLogin = () => {
                 email: user.email,
                 avatar: user.photoURL
             }
-            const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/auth/google-login`, {
+            const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/auth/google-auth`, {
                 method: 'post',
                 headers: { 'Content-type': 'application/json' },
                 credentials: 'include',
@@ -33,6 +36,7 @@ const GoogleLogin = () => {
                 showToast('error', data.message)
                 return
             }
+            dispatch(setUser(data.user))
             navigate(RouteIndex)
             showToast('success', data.message)
             console.log(googleResponse)
@@ -41,7 +45,7 @@ const GoogleLogin = () => {
         }
     }
     return (
-        <Button variant='outline' className='w-full' onClick={handleLogin} >
+        <Button variant='outline' className='w-full cursor-pointer' onClick={handleLogin} >
             <FcGoogle />
             Continue with Google
         </Button>

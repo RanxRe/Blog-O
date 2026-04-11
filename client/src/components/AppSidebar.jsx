@@ -29,31 +29,31 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <AiOutlineHome />
-                                <Link to={""} >Home</Link>
+                                <Link className="flex items-center gap-2 w-full" to={""} >Home</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <AiOutlineUnorderedList />
-                                <Link to={""} >Categories</Link>
+                                <Link className="flex items-center gap-2 w-full" to={""} >Categories</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <ImPencil2 />
-                                <Link to={""} >Blogs</Link>
+                                <Link className="flex items-center gap-2 w-full" to={""} >Blogs</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <AiOutlineComment />
-                                <Link to={""} >Comments</Link>
+                                <Link className="flex items-center gap-2 w-full" to={""} >Comments</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <AiOutlineUser />
-                                <Link to={""} >Users</Link>
+                                <Link className="flex items-center gap-2 w-full" to={""} >Users</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                     </SidebarMenu>
@@ -65,7 +65,7 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <GoDot />
-                                <Link to={""} >Dynamic Categories from bknd</Link>
+                                <Link className="flex items-center gap-2 w-full" to={""} >Dynamic Categories from bknd</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 
