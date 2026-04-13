@@ -54,9 +54,9 @@ const CategoryTable = ({ categoryData, loading, setRefreshData, refreshData }) =
         <Table>
             <TableHeader>
                 <TableRow>
-                    <TableHead>#</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Slug</TableHead>
+                    <TableHead className='font-bold' >#</TableHead>
+                    <TableHead className='font-bold' >Name</TableHead>
+                    <TableHead className='font-bold' >Slug</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
             </TableHeader>
