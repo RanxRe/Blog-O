@@ -8,7 +8,7 @@ function Loading({ className, ...props }) {
         <LoaderIcon
             role="status"
             aria-label="Loading"
-            className={cn("size-4 animate-spin w-100 h-100 flex justify-center", className)}
+            className={cn("size-20 animate-spin flex justify-center items-center", className)}
             {...props}
         />
     )
@@ -16,7 +16,7 @@ function Loading({ className, ...props }) {
 
 export function SpinnerCustom() {
     return (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-center gap-4">
             <Spinner />
         </div>
     )

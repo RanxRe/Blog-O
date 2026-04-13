@@ -14,20 +14,21 @@ import { showToast } from '@/helpers/showToast'
 import GoogleLogin from '@/components/GoogleLogin'
 
 
-const formSchema = z.object({
-    name: z.string().min(3, "Name must be at least 3 characters"),
-    email: z.email("Enter a valid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string()
-}).refine(data => data.password === data.confirmPassword,
-    {
-        message: "Password and Confirm Password must be same.",
-        path: ["confirmPassword"] //shows error under this field
-    })
 
 const SignUp = () => {
 
     const navigate = useNavigate()
+
+    const formSchema = z.object({
+        name: z.string().min(3, "Name must be at least 3 characters"),
+        email: z.email("Enter a valid email address"),
+        password: z.string().min(8, "Password must be at least 8 characters"),
+        confirmPassword: z.string()
+    }).refine(data => data.password === data.confirmPassword,
+        {
+            message: "Password and Confirm Password must be same.",
+            path: ["confirmPassword"] //shows error under this field
+        })
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -185,7 +186,7 @@ const SignUp = () => {
                                 )}
                             />
                         </FieldGroup>
-                        <Button type="submit" className="w-full">Sign In</Button>
+                        <Button type="submit" className="w-full cursor-pointer">Sign In</Button>
                         <div className='flex justify-center mt-4'>
                             <CardDescription>Already have an account? <Link className='text-stone-900 hover:underline' to={RouteSignIn} > Log in</Link></CardDescription>
                         </div>
