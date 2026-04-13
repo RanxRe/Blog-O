@@ -67,6 +67,12 @@ export const updateCategory = async (req, res, next) => {
 
 export const deleteCategory = async (req, res, next) => {
   try {
+    const { categoryId } = req.params;
+    const category = await categoryModel.findByIdAndDelete(categoryId);
+    res.status(200).json({
+      success: true,
+      message: "Category deleted successfully",
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }

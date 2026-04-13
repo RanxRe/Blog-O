@@ -19,11 +19,33 @@ import {
 import Loading from './Loading'
 import { Link } from 'react-router'
 import { getCategoryEditRoute } from '@/helpers/routeName'
+import { showToast } from '@/helpers/showToast'
+import { getEnvName } from '@/helpers/getEnvName'
 
-const CategoryTable = ({ categoryData, loading }) => {
+const CategoryTable = ({ categoryData, loading, setRefreshData, refreshData }) => {
 
-    const handleDelete = (id) => {
-        window.alert(`Delete ${id}`)
+    const handleDelete = async (id, name) => {
+        const c = confirm(`Are you sure to Delete "${name}" category ?`)
+        if (c) {
+            try {
+                const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/category/delete/${id}`, {
+                    method: 'delete',
+                    credentials: "include"
+                })
+                const data = await response.json()
+                if (!response.ok) {
+                    return showToast("error", data.message)
+                }
+                setRefreshData(!refreshData)
+                showToast("success", data.message)
+            } catch (error) {
+                console.log(error)
+                showToast("error", error.message)
+                return false
+            }
+        } else {
+            return false
+        }
     }
 
     if (loading) return <Loading />
@@ -48,11 +70,11 @@ const CategoryTable = ({ categoryData, loading }) => {
                                 <TableCell>{cat?.slug}</TableCell>
                                 <TableCell className="text-right">
                                     <DropdownMenu  >
-                                        <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="size-8"><MoreHorizontalIcon /><span className="sr-only">Open menu</span></Button>} />
+                                        <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="size-8"><MoreHorizontalIcon /><span className="sr-only cursor-pointer">Open menu</span></Button>} />
                                         <DropdownMenuContent align="end">
                                             <DropdownMenuItem ><Link className="flex items-center w-full" to={getCategoryEditRoute(cat._id)} >Edit</Link></DropdownMenuItem>
                                             <DropdownMenuSeparator />
-                                            <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={() => handleDelete(cat._id)}>
+                                            <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={() => handleDelete(cat._id, cat.name)}>
                                                 Delete
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
