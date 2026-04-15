@@ -124,7 +124,7 @@ export const googleLogin = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "sign in successfully ",
+      message: "Sign in successfully ",
       user: userWithoutPassword,
     });
   } catch (error) {

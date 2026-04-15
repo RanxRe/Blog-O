@@ -10,5 +10,12 @@ export const getCategoryEditRoute = (categoryId) => `/categories/edit/${category
 
 // export const RouteCategoriesEdit = dynamicCategories();
 
+export const RouteBlog = "/blogs";
+export const RouteBlogAdd = "/blogs/add";
+export const RouteBlogEdit = (blogId) => {
+  if (blogId) return `blogs/edit/${blogId}`;
+  else return `blogs/edit/:blogId`;
+};
+
 //  ERROR PAGE
 export const RouteErrorPage = "/*";
