@@ -15,7 +15,7 @@ import logo from "@/assets/images/brand-logo-light.png"
 import { AiOutlineUnorderedList, AiOutlineHome, AiOutlineComment, AiOutlineUser } from "react-icons/ai";
 import { ImPencil2 } from "react-icons/im";
 import { GoDot } from "react-icons/go";
-import { RouteCategoriesDetails } from '@/helpers/routeName';
+import { RouteBlog, RouteCategoriesDetails } from '@/helpers/routeName';
 
 const AppSidebar = () => {
 
@@ -42,7 +42,7 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <ImPencil2 />
-                                <Link className="flex items-center gap-2 w-full" to={""} >Blogs</Link>
+                                <Link className="flex items-center gap-2 w-full" to={RouteBlog} >Blogs</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>

@@ -1,22 +1,9 @@
 import React from 'react'
 import { MoreHorizontalIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
-import Loading from './Loading'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import Loading from '../../components/Loading'
 import { Link } from 'react-router'
 import { getCategoryEditRoute } from '@/helpers/routeName'
 import { showToast } from '@/helpers/showToast'
@@ -57,7 +44,7 @@ const CategoryTable = ({ categoryData, loading, setRefreshData, refreshData }) =
                     <TableHead className='font-bold' >#</TableHead>
                     <TableHead className='font-bold' >Name</TableHead>
                     <TableHead className='font-bold' >Slug</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead className="font-bold text-right">Actions</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>

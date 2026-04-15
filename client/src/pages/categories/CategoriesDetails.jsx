@@ -1,4 +1,4 @@
-import CategoryTable from '@/components/CategoryTable'
+import CategoryTable from '../categories/CategoryTable'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
 import { getEnvName } from '@/helpers/getEnvName'
