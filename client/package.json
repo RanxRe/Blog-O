@@ -19,6 +19,7 @@
     "ckeditor5": "^48.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "entities": "^8.0.0",
     "firebase": "^12.11.0",
     "lucide-react": "^1.7.0",
     "react": "^19.1.1",

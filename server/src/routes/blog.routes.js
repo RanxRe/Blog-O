@@ -15,4 +15,4 @@ blogRouter.post("/add", upload.single("file"), addBlog);
 blogRouter.get("/get-all", getAllBlog);
 blogRouter.get("/edit/:blogId", editBlog);
 blogRouter.put("/update/:blogId", upload.single("file"), updateBlog);
-blogRouter.post("/delete/:blogId", deleteBlog);
+blogRouter.delete("/delete/:blogId", deleteBlog);
