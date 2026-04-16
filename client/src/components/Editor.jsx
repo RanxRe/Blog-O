@@ -18,7 +18,7 @@ const LICENSE_KEY = 'GPL'; // or <YOUR_LICENSE_KEY>.
 
 
 
-const Editor = ({ props }) => {
+const Editor = ({ value, onChange }) => {
     const [isLayoutReady, setIsLayoutReady] = useState(false);
 
     useEffect(() => {
@@ -36,7 +36,6 @@ const Editor = ({ props }) => {
             editorConfig: {
                 root: {
                     placeholder: 'Type or paste your content here!',
-                    initialData: props?.initialData || ``
                 },
                 toolbar: {
                     items: [
@@ -239,7 +238,16 @@ const Editor = ({ props }) => {
     return (
         <div className="main-container">
             <div className="editor-container editor-container_classic-editor editor-container_include-style editor-container_include-block-toolbar editor-container_include-fullscreen">
-                <div className="editor-container__editor">{editorConfig && <CKEditor editor={ClassicEditor} config={editorConfig} onChange={props.onChange} />}</div>
+                <div className="editor-container__editor">
+                    {editorConfig && <CKEditor
+                        editor={ClassicEditor}
+                        config={editorConfig}
+
+                        data={value || ""}
+                        onChange={(event, editor) => {
+                            onChange(event, editor);
+                        }}
+                    />}</div>
             </div>
         </div>
     );
