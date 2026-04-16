@@ -13,25 +13,30 @@ import { getEnvName } from '@/helpers/getEnvName'
 import { useFetch } from '@/hooks/useFetch'
 import Dropzone from 'react-dropzone'
 import Editor from '@/components/Editor'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { RouteBlog } from '@/helpers/routeName'
 
 
 const AddBlog = () => {
 
+    const navigate = useNavigate()
+    const user = useSelector((state) => state.user)
     const [filePreview, setFilePreview] = useState()
     const [file, setFile] = useState()
+    const BASE_URL = getEnvName('VITE_API_BASE_URL')
 
-    const { data: categoryData, loading, error } = useFetch(`${getEnvName('VITE_API_BASE_URL')}/category/get-all`, {
+    const { data: categoryData, loading, error } = useFetch(`${BASE_URL}/category/get-all`, {
         method: 'get',
         credentials: 'include'
     })
-    console.log(categoryData)
 
     const formSchema = z.object({
         title: z.string().min(3, "Title must be at least 3 characters"),
         category: z.string().min(3, "Category must be at least 3 characters"),
         blogContent: z.string().min(3, "Blog Content must be at least 3 characters"),
         slug: z.string().min(3, "Slug must be at least 3 characters"),
-        // image: z.string()
+        // featuredImage: z.string()
     })
 
     const form = useForm({
@@ -54,6 +59,11 @@ const AddBlog = () => {
         setFilePreview(preview)
     }
 
+    const handleEditorData = (event, editor) => {
+        const data = editor.getData()
+        form.setValue('blogContent', data)
+    }
+
     const blogTitle = form.watch("title")
 
     useEffect(() => {
@@ -67,23 +77,39 @@ const AddBlog = () => {
     }, [blogTitle, form])
 
     async function onSubmit(values) {
-        // try {
-        //     const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/category/add`, {
-        //         method: 'post',
-        //         headers: { 'Content-type': 'application/json' },
-        //         body: JSON.stringify(values)
-        //     })
-        //     const data = await response.json()
-        //     if (!response.ok) {
-        //         showToast('error', data.message)
-        //         return
-        //     }
-        //     showToast('success', data.message)
-        //     form.reset()
-        // } catch (error) {
-        //     showToast('error', error.message)
-        // }
-        // console.log(values)
+        try {
+            const newValue = { ...values, author: user?.user._id }
+
+            if (!file) {
+                return showToast('error', 'Feature Image requied.')
+            }
+            const formData = new FormData()
+            // for media append
+            formData.append('file', file)
+            // for text data, values should be srnt in JSON string
+            formData.append('data', JSON.stringify(newValue))
+
+            const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/blog/add`, {
+                method: 'post',
+                // headers: { 'Content-type': 'application/json' }, will be multipart data which is done automatically so removing it
+                credentials: 'include',
+                // formData will be sent from bofy
+                body: formData
+            })
+            const data = await response.json()
+            if (!response.ok) {
+                showToast('error', data.message)
+                return
+            }
+            form.reset()
+            setFile()
+            setFilePreview()
+            navigate(RouteBlog)
+            showToast('success', data.message)
+        } catch (error) {
+            showToast('error', error.message)
+        }
+        console.log(values)
     }
     return (
         <div className='flex justify-center items-center'>
@@ -207,7 +233,7 @@ const AddBlog = () => {
                                 
                             </div> */}
 
-                            {/* SLUG FIELD */}
+                            {/* BLOG CONTENT FIELD */}
                             <Controller
                                 name="blogContent"
                                 control={form.control}
@@ -215,7 +241,7 @@ const AddBlog = () => {
                                     <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor="blogContent">Write post</FieldLabel>
 
-                                        <Editor props={{ initialData: "" }} />
+                                        <Editor props={{ initialData: "", onChange: handleEditorData }} />
 
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />

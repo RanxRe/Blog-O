@@ -128,7 +128,7 @@ const SignIn = () => {
                                 )}
                             />
                         </FieldGroup>
-                        <Button type="submit" className="w-full">Sign In</Button>
+                        <Button type="submit" className="w-full cursor-pointer">Sign In</Button>
                         <div className='flex justify-center mt-4'>
                             <CardDescription>Don&apos;t have an account? <Link className='text-stone-900 hover:underline' to={RouteSignUp} > Create account</Link></CardDescription>
                         </div>
