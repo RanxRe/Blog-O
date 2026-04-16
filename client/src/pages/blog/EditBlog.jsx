@@ -265,7 +265,13 @@ const EditBlog = () => {
                                         {console.log(field.value)}
                                         <FieldLabel htmlFor="blogContent">Write post</FieldLabel>
 
-                                        <Editor props={{ initialData: field.value, onChange: handleEditorData }} />
+                                        <Editor
+                                            // props={{ initialData: field.value,
+                                            // onChange:handleEditorData
+                                            value={field.value}
+                                            onChange={handleEditorData}
+                                        //  }}
+                                        />
 
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />
