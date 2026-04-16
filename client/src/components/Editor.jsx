@@ -309,7 +309,7 @@ const Editor = ({ props }) => {
     return (
         <div className="main-container">
             <div className="editor-container editor-container_classic-editor editor-container_include-style editor-container_include-block-toolbar editor-container_include-fullscreen">
-                <div className="editor-container__editor">{editorConfig && <CKEditor editor={ClassicEditor} config={editorConfig} />}</div>
+                <div className="editor-container__editor">{editorConfig && <CKEditor editor={ClassicEditor} config={editorConfig} onChange={props.onChange} />}</div>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
@@ -11,10 +11,13 @@ import { getEnvName } from '@/helpers/getEnvName'
 
 const BlogDetails = () => {
 
-    const { data: categoryData, loading, error } = useFetch(`${getEnvName('VITE_API_BASE_URL')}/category/get-all`, {
+    const [refreshData, setRefreshData] = useState(false)
+
+    const { data: blogData, loading, error } = useFetch(`${getEnvName('VITE_API_BASE_URL')}/blog/get-all`, {
         method: 'get',
         credentials: 'include'
-    })
+    }, [refreshData])
+
     return (
         <div>
             <Card>
@@ -26,13 +29,9 @@ const BlogDetails = () => {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    {/* <CardDescription className='py-2'>Total: {categoryData?.totalCount || 0}</CardDescription> */}
+                    <CardDescription className='py-2'>Total: {blogData?.totalCount || 0}</CardDescription>
                     {/* <CategoryTable categoryData={categoryData} loading={loading} refreshData={refreshData} setRefreshData={setRefreshData} /> */}
-                    <BlogsTable
-                    // categoryData={categoryData}
-                    // loading={loading}
-                    //   refreshData={refreshData}
-                    //    setRefreshData={setRefreshData}
+                    <BlogsTable blogData={blogData} loading={loading} refreshData={refreshData} setRefreshData={setRefreshData}
                     />
                 </CardContent>
             </Card>
