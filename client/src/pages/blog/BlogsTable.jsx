@@ -11,8 +11,8 @@ import { RouteBlogEdit } from '@/helpers/routeName'
 
 const BlogsTable = ({ blogData, loading, setRefreshData, refreshData }) => {
 
-    const handleDelete = async (id, name) => {
-        const c = confirm(`Are you sure to Delete blog: "${name}" ?`)
+    const handleDelete = async (id, title) => {
+        const c = confirm(`Are you sure to Delete blog:"${id}"-"${title}" ?`)
         if (c) {
             try {
                 const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/blog/delete/${id}`, {
@@ -67,7 +67,7 @@ const BlogsTable = ({ blogData, loading, setRefreshData, refreshData }) => {
                                         <DropdownMenuContent align="end">
                                             <DropdownMenuItem ><Link className="flex items-center w-full" to={RouteBlogEdit(blg._id)} >Edit</Link></DropdownMenuItem>
                                             <DropdownMenuSeparator />
-                                            <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={() => handleDelete(blg._id, blg.name)}>
+                                            <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={() => handleDelete(blg._id, blg.title)}>
                                                 Delete
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
