@@ -1,0 +1,80 @@
+import React from 'react'
+import { MessagesSquareIcon } from 'lucide-react'
+import { z } from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Field, FieldError, FieldGroup, FieldLabel } from './ui/field'
+import { useForm, Controller } from 'react-hook-form'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
+import { showToast } from '@/helpers/showToast'
+import { getEnvName } from '@/helpers/getEnvName'
+import { Textarea } from './ui/textarea'
+
+const Comments = () => {
+
+    const formSchema = z.object({
+        comment: z.string().min(10, "Comment must be at least 10 characters"),
+    })
+
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            comment: "",
+        }
+    })
+
+    async function onSubmit(values) {
+        try {
+            const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/blog/comment`, {
+                method: 'post',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(values)
+            })
+            const data = await response.json()
+            if (!response.ok) {
+                showToast('error', data.message)
+                return
+            }
+            showToast('success', data.message)
+            form.reset()
+        } catch (error) {
+            showToast('error', error.message)
+        }
+        console.log(values)
+    }
+
+    return (
+        <div className='border-t mt-2 pt-2'>
+            <h4 className='flex items-center gap-2 text-2xl font-bold'>
+                <MessagesSquareIcon size={30} /> Comments</h4>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FieldGroup>
+                    {/* NAME FIELD */}
+                    <Controller
+                        name="comment"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel htmlFor="comment">Add Comment</FieldLabel>
+
+                                <Textarea
+                                    {...field}
+                                    placeholder="Write your thoughts on this blog..."
+                                    aria-invalid={fieldState.invalid} />
+
+                                {fieldState.error && (
+                                    <FieldError errors={[fieldState.error]} />
+                                )}
+                            </Field>
+                        )}
+                    />
+
+                </FieldGroup>
+                <Button type="submit" className="w-25 cursor-pointer">Comment</Button>
+
+            </form>
+        </div>
+    )
+}
+
+export default Comments

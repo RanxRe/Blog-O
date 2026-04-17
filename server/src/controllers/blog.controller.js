@@ -132,8 +132,8 @@ export const getAllBlog = async (req, res, next) => {
   try {
     const blog = await blogModel
       .find()
-      .populate("author", "name")
-      .populate("category", "name")
+      .populate("author", "name avatar")
+      .populate("category", "name slug")
       .sort({ createdAt: -1 })
       .lean()
       .exec();
@@ -141,6 +141,25 @@ export const getAllBlog = async (req, res, next) => {
     res.status(200).json({
       success: true,
       totalCount: blog.length,
+      blog,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+export const getBlogSingle = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+    const blog = await blogModel
+      .findOne({ slug })
+      .populate("author", "name avatar role")
+      .populate("category", "name slug")
+      .lean()
+      .exec();
+
+    res.status(200).json({
+      success: true,
       blog,
     });
   } catch (error) {
