@@ -16,8 +16,15 @@ import { AiOutlineUnorderedList, AiOutlineHome, AiOutlineComment, AiOutlineUser 
 import { ImPencil2 } from "react-icons/im";
 import { GoDot } from "react-icons/go";
 import { RouteBlog, RouteCategoriesDetails } from '@/helpers/routeName';
+import { useFetch } from '@/hooks/useFetch';
+import { getEnvName } from '@/helpers/getEnvName';
 
 const AppSidebar = () => {
+
+    const { data: categoryData } = useFetch(`${getEnvName(`VITE_API_BASE_URL`)}/category/get-all`, {
+        method: 'get',
+        ceredentials: 'include'
+    })
 
     return (
         <Sidebar>
@@ -63,13 +70,14 @@ const AppSidebar = () => {
                 <SidebarGroup>
                     <SidebarGroupLabel>Catergories</SidebarGroupLabel>
                     <SidebarMenu>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton>
-                                <GoDot />
-                                <Link className="flex items-center gap-2 w-full" to={""} >Dynamic Categories from bknd</Link>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-
+                        {categoryData && categoryData.category.length > 0
+                            && categoryData.category.map((cat) => <SidebarMenuItem key={cat._id} >
+                                <SidebarMenuButton>
+                                    <GoDot />
+                                    <Link className="flex items-center gap-2 w-full" to={""} >{cat.name}</Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>)
+                        }
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
