@@ -1,13 +1,15 @@
+import React, { useState } from 'react'
 import { Spinner } from '@/components/ui/spinner'
 import { getEnvName } from '@/helpers/getEnvName'
 import { useFetch } from '@/hooks/useFetch'
-import React from 'react'
 import { useParams } from 'react-router'
 import { decode } from 'entities'
 import Comments from '@/components/Comments'
+import CommentList from '@/components/CommentList'
 
 const BlogDetailSingle = () => {
 
+    const [refreshData, setRefreshData] = useState(false)
     const { slug } = useParams()
     const { data, loading, error } = useFetch(`${getEnvName(`VITE_API_BASE_URL`)}/blog/get-blog/${slug}`, {
         method: 'get',
@@ -107,8 +109,12 @@ const BlogDetailSingle = () => {
                         </div>
 
                     </div>
-                    <Comments />
+                    <div className='mt-10'>
+                        <Comments blogId={data?.blog?._id} refreshData={refreshData} setRefreshData={setRefreshData} />
+                        <CommentList blogId={data?.blog?._id} refreshData={refreshData} />
+                    </div>
                 </div>
+
             )}
         </div>
     )
