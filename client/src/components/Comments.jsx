@@ -29,7 +29,7 @@ const Comments = ({ blogId, refreshData, setRefreshData }) => {
 
     async function onSubmit(values) {
         try {
-            const newValues = { ...values, blogId: blogId, author: user?.user._id }
+            const newValues = { ...values, blogId: blogId, user: user?.user._id }
             const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/comment/add`, {
                 method: 'post',
                 headers: { 'Content-type': 'application/json' },

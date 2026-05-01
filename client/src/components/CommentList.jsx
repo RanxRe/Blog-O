@@ -31,11 +31,11 @@ const CommentList = ({ blogId, refreshData }) => {
                         {data?.comments.length > 0 && data?.comments.map((comm) =>
                             <div className='flex flex-column gap-2' key={comm._id}>
                                 <Avatar>
-                                    <AvatarImage src={comm?.author.avatar} />
+                                    <AvatarImage src={comm?.user.avatar} />
                                     <AvatarFallback>{<User2Icon />}</AvatarFallback>
                                 </Avatar>
                                 <div className='mb-10'>
-                                    <p className="text-xs text-gray-500" >{comm?.author.name}</p>
+                                    <p className="text-xs text-gray-500" >{comm?.user.name}</p>
                                     <p className="text-xs text-gray-500"> {new Date(comm?.createdAt).toDateString()}</p>
                                     <p className='pt-3'>
                                         {comm?.comment}
