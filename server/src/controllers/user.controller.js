@@ -46,7 +46,7 @@ export const updateUserDetail = async (req, res, next) => {
         // save image URL
         user.avatar = uploadResult.secure_url;
       } catch (error) {
-        next(handleError(500, "error.message"));
+        next(handleError(500, error.message));
       }
     }
     await user.save();

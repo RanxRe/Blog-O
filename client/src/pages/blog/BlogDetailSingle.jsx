@@ -7,6 +7,7 @@ import { decode } from 'entities'
 import Comments from '@/components/Comments'
 import CommentList from '@/components/CommentList'
 import CommentCount from '@/components/CommentCount'
+import LikeCount from '@/components/LikeCount'
 
 const BlogDetailSingle = () => {
 
@@ -34,11 +35,14 @@ const BlogDetailSingle = () => {
                     {/* LEFT - BLOG CONTENT */}
                     <div className="lg:col-span-2">
                         {/* Title */}
-                        <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4'>
+                        <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2'>
                             <h1 className="text-3xl md:text-4xl font-bold mb-4">
                                 {data?.blog.title}
                             </h1>
-                            <CommentCount blogId={data.blog._id} />
+                            <div className='flex md:flex-row gap-6' >
+                                <LikeCount blogId={data.blog._id} />
+                                <CommentCount blogId={data.blog._id} />
+                            </div>
                         </div>
                         {/* Featured Image */}
                         <img

@@ -3,10 +3,10 @@ import commentModel from "../models/comment.model.js";
 
 export const addComment = async (req, res, next) => {
   try {
-    const { author, blogId, comment } = req.body;
+    const { user, blogId, comment } = req.body;
     const newComment = new commentModel({
       // author: req.user._id,
-      author: author,
+      user: user,
       blogId: blogId,
       comment: comment,
     });
@@ -27,7 +27,7 @@ export const getComment = async (req, res, next) => {
     const { blogId } = req.params;
     const comments = await commentModel
       .find({ blogId })
-      .populate("author", "name avatar")
+      .populate("user", "name avatar")
       .sort({ createdAt: -1 })
       .lean()
       .exec();

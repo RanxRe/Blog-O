@@ -9,6 +9,7 @@ import { userRouter } from "./routes/user.routes.js";
 import { categoryRouter } from "./routes/category.routes.js";
 import { blogRouter } from "./routes/blog.routes.js";
 import { commentRouter } from "./routes/comment.routes.js";
+import { likeRouter } from "./routes/like.routes.js";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/api/user", userRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/comment", commentRouter);
+app.use("/api/like", likeRouter);
 
 // ERROR MIDDLEWARE :- error mdlwrs must be at last
 app.use(errorHandler);
