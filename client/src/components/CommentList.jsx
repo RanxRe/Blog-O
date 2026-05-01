@@ -11,7 +11,7 @@ const CommentList = ({ blogId, refreshData }) => {
         method: 'get',
         credentials: 'include',
     }, [refreshData])
-    console.log(data)
+    // console.log(data)
 
     if (loading) {
         return (

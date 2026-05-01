@@ -40,3 +40,16 @@ export const getComment = async (req, res, next) => {
     next(handleError(500, error.message));
   }
 };
+
+export const commentCount = async (req, res, next) => {
+  try {
+    const { blogId } = req.params;
+    const commentCount = await commentModel.countDocuments({ blogId });
+    res.status(200).json({
+      success: true,
+      commentCount,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};

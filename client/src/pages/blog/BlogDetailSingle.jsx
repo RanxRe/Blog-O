@@ -6,6 +6,7 @@ import { useParams } from 'react-router'
 import { decode } from 'entities'
 import Comments from '@/components/Comments'
 import CommentList from '@/components/CommentList'
+import CommentCount from '@/components/CommentCount'
 
 const BlogDetailSingle = () => {
 
@@ -15,7 +16,7 @@ const BlogDetailSingle = () => {
         method: 'get',
         credentials: 'include',
     })
-    console.log(data)
+    // console.log(data)
 
     if (loading) {
         return (
@@ -33,9 +34,12 @@ const BlogDetailSingle = () => {
                     {/* LEFT - BLOG CONTENT */}
                     <div className="lg:col-span-2">
                         {/* Title */}
-                        <h1 className="text-3xl md:text-4xl font-bold mb-4">
-                            {data?.blog.title}
-                        </h1>
+                        <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4'>
+                            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+                                {data?.blog.title}
+                            </h1>
+                            <CommentCount blogId={data.blog._id} />
+                        </div>
                         {/* Featured Image */}
                         <img
                             src={data?.blog.featuredImage}
