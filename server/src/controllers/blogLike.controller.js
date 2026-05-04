@@ -26,11 +26,21 @@ export const doLike = async (req, res, next) => {
 
 export const likeCount = async (req, res, next) => {
   try {
-    const { blogId } = req.params;
+    const { blogId, userId } = req.params;
+    // const userId = req.user?._id; // from JWT
     const likeCount = await likeModel.countDocuments({ blogId });
+
+    let isLiked = false;
+    if (userId) {
+      const existing = await likeModel.countDocuments({ blogId, userId });
+      if (existing > 0) {
+        isLiked = true;
+      }
+    }
     res.status(200).json({
       success: true,
       likeCount,
+      isLiked,
     });
   } catch (error) {
     next(handleError(500, error.message));
