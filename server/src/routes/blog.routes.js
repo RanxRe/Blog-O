@@ -5,6 +5,7 @@ import {
   editBlog,
   getAllBlog,
   getBlogSingle,
+  getRelatedBlog,
   updateBlog,
 } from "../controllers/blog.controller.js";
 import upload from "../lib/multer.js";
@@ -18,3 +19,4 @@ blogRouter.get("/get-blog/:slug", getBlogSingle);
 blogRouter.get("/edit/:blogId", editBlog);
 blogRouter.put("/update/:blogId", upload.single("file"), updateBlog);
 blogRouter.delete("/delete/:blogId", deleteBlog);
+blogRouter.get("/get-related-blog/:category/:slug", getRelatedBlog);

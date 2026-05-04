@@ -8,16 +8,17 @@ import Comments from '@/components/Comments'
 import CommentList from '@/components/CommentList'
 import CommentCount from '@/components/CommentCount'
 import LikeCount from '@/components/LikeCount'
+import RelatedBlogs from '@/components/RelatedBlogs'
 
 const BlogDetailSingle = () => {
 
     const [refreshData, setRefreshData] = useState(false)
-    const { slug } = useParams()
+    const { slug, category } = useParams()
     const { data, loading, error } = useFetch(`${getEnvName(`VITE_API_BASE_URL`)}/blog/get-blog/${slug}`, {
         method: 'get',
         credentials: 'include',
-    })
-    // console.log(data)
+    }, [slug, category])
+    console.log(data)
 
     if (loading) {
         return (
@@ -114,6 +115,11 @@ const BlogDetailSingle = () => {
                                 <strong>Updated:</strong>{" "}
                                 {new Date(data?.blog.updatedAt).toDateString()}
                             </p>
+                        </div>
+
+                        {/* Related blogs */}
+                        <div className="border rounded-2xl p-5 shadow-sm">
+                            <RelatedBlogs category={category} slug={slug} />
                         </div>
 
                     </div>

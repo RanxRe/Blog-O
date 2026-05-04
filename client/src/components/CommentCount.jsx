@@ -8,7 +8,7 @@ const CommentCount = ({ blogId }) => {
         method: 'get',
         credentials: 'include',
     })
-    console.log(data)
+    // console.log(data)
 
     return (
         <button className='flex items-center gap-2 text-gray-600'>

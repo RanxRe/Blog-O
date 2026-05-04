@@ -18,7 +18,7 @@ const LikeCount = ({ blogId }) => {
         method: 'get',
         credentials: 'include',
     })
-    console.log(data)
+    // console.log(data)
 
     useEffect(() => {
         if (data) {

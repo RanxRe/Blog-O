@@ -16,15 +16,17 @@ import Editor from '@/components/Editor'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { RouteBlog } from '@/helpers/routeName'
+import { Spinner } from '@/components/ui/spinner'
 
 
 const AddBlog = () => {
 
-    const navigate = useNavigate()
     const user = useSelector((state) => state.user)
+    const [blogLoading, setBlogLoading] = useState(false)
+    const BASE_URL = getEnvName('VITE_API_BASE_URL')
     const [filePreview, setFilePreview] = useState()
     const [file, setFile] = useState()
-    const BASE_URL = getEnvName('VITE_API_BASE_URL')
+    const navigate = useNavigate()
 
     const { data: categoryData, loading, error } = useFetch(`${BASE_URL}/category/get-all`, {
         method: 'get',
@@ -77,11 +79,14 @@ const AddBlog = () => {
     }, [blogTitle, form])
 
     async function onSubmit(values) {
+        setBlogLoading(true)
         try {
             const newValue = { ...values, author: user?.user._id }
 
             if (!file) {
-                return showToast('error', 'Feature Image requied.')
+                showToast('error', 'Feature Image requied.')
+                setBlogLoading(false)
+                return
             }
             const formData = new FormData()
             // for media append
@@ -99,6 +104,7 @@ const AddBlog = () => {
             const data = await response.json()
             if (!response.ok) {
                 showToast('error', data.message)
+                setBlogLoading(false)
                 return
             }
             form.reset()
@@ -108,6 +114,8 @@ const AddBlog = () => {
             showToast('success', data.message)
         } catch (error) {
             showToast('error', error.message)
+        } finally {
+            setBlogLoading(false)
         }
         console.log(values)
     }
@@ -241,7 +249,13 @@ const AddBlog = () => {
                                     <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel htmlFor="blogContent">Write post</FieldLabel>
 
-                                        <Editor props={{ initialData: "", onChange: handleEditorData }} />
+                                        {/* <Editor props={{ initialData: "", onChange: handleEditorData }} /> */}
+                                        <Editor value={field.value}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                field.onChange(data);   // ✅ update form
+                                            }}
+                                        />
 
                                         {fieldState.error && (
                                             <FieldError errors={[fieldState.error]} />
@@ -250,7 +264,12 @@ const AddBlog = () => {
                                 )}
                             />
                         </FieldGroup>
-                        <Button type="submit" className="w-full cursor-pointer">Add</Button>
+
+                        <Button type="submit" className="w-full cursor-pointer" disabled={blogLoading}>
+                            {blogLoading && <Spinner className="mr-2" />}
+                            {blogLoading ? "Adding post... Please wait !" : "Add"}
+                        </Button>
+
 
                     </form>
                 </CardContent>
