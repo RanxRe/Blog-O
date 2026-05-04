@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getEnvName } from '@/helpers/getEnvName'
 import { removeUser } from '@/redux/user/user.slice'
 import { showToast } from '@/helpers/showToast'
-import { RouteIndex, RouteProfile } from '@/helpers/routeName'
+import { RouteBlogAdd, RouteIndex, RouteProfile } from '@/helpers/routeName'
 
 const UserDropDownMenu = () => {
 
@@ -70,7 +70,7 @@ const UserDropDownMenu = () => {
                 </DropdownMenuGroup>
                 <DropdownMenuGroup>
                     <DropdownMenuItem >
-                        <Link to="/example" className="flex items-center gap-2 w-full">
+                        <Link to={RouteBlogAdd} className="flex items-center gap-2 w-full">
                             <Edit />
                             Create Blog
                         </Link>

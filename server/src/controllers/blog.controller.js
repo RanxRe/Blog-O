@@ -188,3 +188,27 @@ export const getRelatedBlog = async (req, res, next) => {
     next(handleError(500, error.message));
   }
 };
+
+export const getBlogByCategory = async (req, res, next) => {
+  try {
+    const { category } = req.params;
+    const categoryData = await categoryModel.findOne({ slug: category });
+    if (!categoryData) {
+      return next(404, "Category data not found");
+    }
+    const categoryId = categoryData._id;
+    const blog = await blogModel
+      .find({ category: categoryId })
+      .populate("author", "name avatar role")
+      .populate("category", "name slug")
+      .lean()
+      .exec();
+    res.status(200).json({
+      success: true,
+      blog,
+      categoryData,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};

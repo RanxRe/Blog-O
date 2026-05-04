@@ -1,23 +1,10 @@
 import React from 'react'
-import { Spinner } from "@/components/ui/spinner"
-import { cn } from "@/lib/utils"
-import { LoaderIcon } from "lucide-react"
+import { Spinner } from './ui/spinner'
 
-function Loading({ className, ...props }) {
-    return (
-        <LoaderIcon
-            role="status"
-            aria-label="Loading"
-            className={cn("size-20 animate-spin flex justify-center items-center", className)}
-            {...props}
-        />
-    )
-}
-
-export function SpinnerCustom() {
+const Loading = () => {
     return (
         <div className="flex items-center justify-center h-screen">
-            <Spinner />
+            <Spinner className="size-10" />
         </div>
     )
 }
