@@ -23,5 +23,13 @@ export const RouteBlogDetails = (category, slug) => {
   } else return `/blog/${category}/${slug}`;
 };
 
+export const RouteBlogByCategory = (category) => {
+  if (!category) {
+    return `/blog/:category`;
+  } else {
+    return `/blog/${category}`;
+  }
+};
+
 //  ERROR PAGE
 export const RouteErrorPage = "/*";

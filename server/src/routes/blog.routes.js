@@ -4,6 +4,7 @@ import {
   deleteBlog,
   editBlog,
   getAllBlog,
+  getBlogByCategory,
   getBlogSingle,
   getRelatedBlog,
   updateBlog,
@@ -20,3 +21,4 @@ blogRouter.get("/edit/:blogId", editBlog);
 blogRouter.put("/update/:blogId", upload.single("file"), updateBlog);
 blogRouter.delete("/delete/:blogId", deleteBlog);
 blogRouter.get("/get-related-blog/:category/:slug", getRelatedBlog);
+blogRouter.get("/get-blog-by-category/:category", getBlogByCategory);

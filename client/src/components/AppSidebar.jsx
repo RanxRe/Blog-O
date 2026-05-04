@@ -15,7 +15,7 @@ import logo from "@/assets/images/brand-logo-light.png"
 import { AiOutlineUnorderedList, AiOutlineHome, AiOutlineComment, AiOutlineUser } from "react-icons/ai";
 import { ImPencil2 } from "react-icons/im";
 import { GoDot } from "react-icons/go";
-import { RouteBlog, RouteCategoriesDetails } from '@/helpers/routeName';
+import { RouteBlog, RouteBlogByCategory, RouteCategoriesDetails } from '@/helpers/routeName';
 import { useFetch } from '@/hooks/useFetch';
 import { getEnvName } from '@/helpers/getEnvName';
 
@@ -74,7 +74,7 @@ const AppSidebar = () => {
                             && categoryData.category.map((cat) => <SidebarMenuItem key={cat._id} >
                                 <SidebarMenuButton>
                                     <GoDot />
-                                    <Link className="flex items-center gap-2 w-full" to={""} >{cat.name}</Link>
+                                    <Link className="flex items-center gap-2 w-full" to={RouteBlogByCategory(cat.slug)} >{cat.name}</Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>)
                         }
