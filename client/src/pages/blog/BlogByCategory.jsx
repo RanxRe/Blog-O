@@ -5,6 +5,7 @@ import { getEnvName } from '@/helpers/getEnvName'
 import { useFetch } from '@/hooks/useFetch'
 import BlogCard from '@/components/BlogCard'
 import EmptyState from '@/components/EmptyState'
+import { BiCategory } from "react-icons/bi";
 
 const BlogByCategory = () => {
     const { category } = useParams()
@@ -36,11 +37,17 @@ const BlogByCategory = () => {
 
     //  3. Finally render data
     return (
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {blogData.blog.map((blg) => (
-                <BlogCard key={blg._id} data={blg} />
-            ))}
-        </div>
+        <>
+            <div className='mb-6 flex flex-row items-center gap-4'>
+                <BiCategory className='text-gray-600' size={30} />
+                <h3 className='text-3xl font-bold text-gray-800'>{blogData?.categoryData.name || category}</h3>
+            </div>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+                {blogData.blog.map((blg) => (
+                    <BlogCard key={blg._id} data={blg} />
+                ))}
+            </div>
+        </>
     )
 }
 

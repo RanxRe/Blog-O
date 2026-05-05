@@ -45,7 +45,7 @@ export const useFetch = (url, options = {}, dependencies = []) => {
 
         if (!isMounted) return;
 
-        setData(result); // ✅ DO NOT clear data before this
+        setData(result); //  DO NOT clear data before this
       } catch (err) {
         if (!isMounted) return;
         setError(err);
