@@ -24,7 +24,7 @@ const BlogByCategory = () => {
     }
 
     //  2. Then check empty state AFTER loading
-    if (!blogData || blogData.blog.length === 0) {
+    if (!blogData || blogData?.blog.length === 0) {
         return (
             <EmptyState
                 title="No Blogs Found"
