@@ -7,6 +7,7 @@ import {
   getBlogByCategory,
   getBlogSingle,
   getRelatedBlog,
+  search,
   updateBlog,
 } from "../controllers/blog.controller.js";
 import upload from "../lib/multer.js";
@@ -22,3 +23,4 @@ blogRouter.put("/update/:blogId", upload.single("file"), updateBlog);
 blogRouter.delete("/delete/:blogId", deleteBlog);
 blogRouter.get("/get-related-blog/:category/:slug", getRelatedBlog);
 blogRouter.get("/get-blog-by-category/:category", getBlogByCategory);
+blogRouter.get("/search", search);
