@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
 import { Link, useNavigate } from 'react-router'
-import { RouteSignIn } from '@/helpers/routeName'
+import { RouteIndex, RouteSignIn } from '@/helpers/routeName'
 import { getEnvName } from '@/helpers/getEnvName'
 import { showToast } from '@/helpers/showToast'
 import GoogleLogin from '@/components/GoogleLogin'
@@ -65,8 +65,9 @@ const SignUp = () => {
             <Card className="w-full md:max-w-md p-4">
                 <CardHeader>
                     <CardTitle>Create your account</CardTitle>
-                    <CardDescription>
+                    <CardDescription className="flex gap-5 items-center justify-between">
                         Connect with Blog-O
+                        <Link to={RouteIndex}><img className='max-w-16' src="src/assets/images/brand-logo-light.png" alt="logo" /></Link>
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

@@ -3,7 +3,7 @@ import logo from "@/assets/images/brand-logo-light.png"
 import { AiOutlineLogin } from "react-icons/ai";
 import { Link } from 'react-router'
 import SearchBox from './SearchBox';
-import { RouteSignIn } from '@/helpers/routeName';
+import { RouteIndex, RouteSignIn } from '@/helpers/routeName';
 import { SunIcon } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { Button } from "@/components/ui/button"
@@ -16,7 +16,9 @@ const Topbar = () => {
     return (
         <div className="flex justify-between items-center h-16 fixed w-full z-20 bg-white px-5 border-b">
             <div>
-                <img src={logo} width={100} alt="logo" />
+                <Link to={RouteIndex}>
+                    <img src={logo} width={100} alt="logo" />
+                </Link>
             </div>
 
             <div className='w-[500px]' >

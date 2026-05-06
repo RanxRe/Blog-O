@@ -57,7 +57,7 @@ const SignIn = () => {
 
     return (
         <div className='flex justify-center gap-2 items-center h-screen w-screen'>
-            <div className=' md:w-100' ><img src="src/assets/images/brand-logo-light.png" alt="logo" /></div>
+            <div className=' md:w-100' ><Link to={RouteIndex}><img src="src/assets/images/brand-logo-light.png" alt="logo" /></Link></div>
             <Card className="w-full md:max-w-md">
                 <CardHeader>
                     <CardTitle>Sign In</CardTitle>
