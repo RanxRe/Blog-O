@@ -60,7 +60,8 @@ export const getAllComments = async (req, res, next) => {
       .find()
       .populate("user", "name")
       .populate("blogId", "title")
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean();
 
     res.status(200).json({
       success: true,
