@@ -10,13 +10,17 @@ const SearchResult = () => {
     const [searchParams] = useSearchParams()
     const q = searchParams.get('q')
 
+
     const { data: blogData, loading } = useFetch(`${getEnvName(`VITE_API_BASE_URL`)}/blog/search?q=${q}`, {
         method: 'get',
         credentials: 'include'
     }, [q])
-    console.log(blogData)
     if (loading) {
         return <Loading />
+    }
+
+    if (q === null) {
+        return <h3>Cannot search for empty string. Please type something to search.</h3>
     }
 
     return (

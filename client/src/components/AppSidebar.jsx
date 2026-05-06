@@ -15,7 +15,7 @@ import logo from "@/assets/images/brand-logo-light.png"
 import { AiOutlineUnorderedList, AiOutlineHome, AiOutlineComment, AiOutlineUser } from "react-icons/ai";
 import { ImPencil2 } from "react-icons/im";
 import { GoDot } from "react-icons/go";
-import { RouteBlog, RouteBlogByCategory, RouteCategoriesDetails } from '@/helpers/routeName';
+import { RouteBlog, RouteBlogByCategory, RouteCategoriesDetails, RouteComments } from '@/helpers/routeName';
 import { useFetch } from '@/hooks/useFetch';
 import { getEnvName } from '@/helpers/getEnvName';
 
@@ -55,7 +55,7 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <AiOutlineComment />
-                                <Link className="flex items-center gap-2 w-full" to={""} >Comments</Link>
+                                <Link className="flex items-center gap-2 w-full" to={RouteComments} >Comments</Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>

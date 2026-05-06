@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router"
 import Layout from "./Layout/Layout"
-import { RouteBlog, RouteBlogAdd, RouteBlogByCategory, RouteBlogDetails, RouteBlogEdit, RouteCategoriesAdd, RouteCategoriesDetails, RouteCategoriesEdit, RouteErrorPage, RouteIndex, RouteProfile, RouteSearch, RouteSignIn, RouteSignUp } from "./helpers/routeName"
+import { RouteBlog, RouteBlogAdd, RouteBlogByCategory, RouteBlogDetails, RouteBlogEdit, RouteCategoriesAdd, RouteCategoriesDetails, RouteCategoriesEdit, RouteComments, RouteErrorPage, RouteIndex, RouteProfile, RouteSearch, RouteSignIn, RouteSignUp } from "./helpers/routeName"
 import Index from "./pages/Index"
 import SignUp from "./pages/SignUp"
 import SignIn from "./pages/SignIn"
@@ -15,6 +15,7 @@ import EditBlog from "./pages/blog/EditBlog"
 import BlogDetailSingle from "./pages/blog/BlogDetailSingle"
 import BlogByCategory from "./pages/blog/BlogByCategory"
 import SearchResult from "./pages/SearchResult"
+import Comments from "./pages/Comments"
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
           <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
           <Route path={RouteBlogDetails()} element={<BlogDetailSingle />} />
           <Route path={RouteSearch()} element={<SearchResult />} />
+
+          {/* Comment route */}
+          <Route path={RouteComments} element={<Comments />} />
 
         </Route>
 

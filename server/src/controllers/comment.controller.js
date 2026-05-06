@@ -53,3 +53,35 @@ export const commentCount = async (req, res, next) => {
     next(handleError(500, error.message));
   }
 };
+
+export const getAllComments = async (req, res, next) => {
+  try {
+    const comments = await commentModel
+      .find()
+      .populate("user", "name")
+      .populate("blogId", "title")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      comments,
+      totalCount: comments.length,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+export const deleteComments = async (req, res, next) => {
+  try {
+    const { commentId } = req.params;
+    const comments = await commentModel.findByIdAndDelete(commentId);
+
+    res.status(200).json({
+      success: true,
+      message: "Comment deleted successfully",
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
