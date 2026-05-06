@@ -22,6 +22,22 @@ export const getUserDetail = async (req, res, next) => {
   }
 };
 
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const user = await userModel.find().sort({ createdAt: -1 }).lean();
+    if (!user) {
+      return next(handleError(404, "User not found"));
+    }
+    res.status(200).json({
+      success: true,
+      user,
+      totalCount: user.length,
+    });
+  } catch (error) {
+    return next(handleError(500, error.message));
+  }
+};
+
 export const updateUserDetail = async (req, res, next) => {
   try {
     const data = JSON.parse(req.body.data); // coz we sent data from frontend in stringified so it changes the string to json object
@@ -55,6 +71,22 @@ export const updateUserDetail = async (req, res, next) => {
       success: true,
       message: "Profile updated",
       user,
+    });
+  } catch (error) {
+    return next(handleError(500, error.message));
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const users = await userModel.findByIdAndDelete(userId);
+    if (!users) {
+      return next(handleError(404, "User not found"));
+    }
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
     });
   } catch (error) {
     return next(handleError(500, error.message));

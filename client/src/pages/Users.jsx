@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Loading from '@/components/Loading'
-import { MoreHorizontalIcon } from "lucide-react"
+import { MoreHorizontalIcon, UserCircleIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -9,27 +9,23 @@ import { getEnvName } from '@/helpers/getEnvName'
 import { useFetch } from '@/hooks/useFetch'
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { Badge } from '@/components/ui/badge'
 
-const Comments = () => {
+const Users = () => {
 
     const [refreshData, setRefreshData] = useState(false)
-    const { data: commentData, loading, error } = useFetch(`${getEnvName('VITE_API_BASE_URL')}/comment/get-all-comments`, {
+    const { data: userData, loading, error } = useFetch(`${getEnvName('VITE_API_BASE_URL')}/user/get-all-user`, {
         method: 'get',
         credentials: 'include'
     }, [refreshData])
 
-    console.log(commentData)
+    console.log(userData)
 
-    const truncate = (text, length = 30) => {
-        if (!text) return "";
-        return text.length > length ? text.substring(0, length) + "..." : text;
-    };
-
-    const handleDelete = async (id, title) => {
-        const c = confirm(`Are you sure to DELETE comment for blog title "${title}" ?`)
+    const handleDelete = async (id, name) => {
+        const c = confirm(`Are you sure to DELETE user "${name}" ?`)
         if (c) {
             try {
-                const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/comment/delete/${id}`, {
+                const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/user/delete/${id}`, {
                     method: 'delete',
                     credentials: "include"
                 })
@@ -54,31 +50,33 @@ const Comments = () => {
     return (
         <Card>
             <CardHeader>
-                <h1 className='text-2xl' >All comments</h1>
+                <h1 className='text-2xl' >All Users</h1>
             </CardHeader>
             <CardContent>
-                <CardDescription className='py-2'>Total: {commentData?.totalCount || 0}</CardDescription>
+                <CardDescription className='py-2'>Total: {userData?.totalCount || 0}</CardDescription>
                 <Table>
                     <TableHeader>
                         <TableRow>
                             <TableHead className='font-bold' >#</TableHead>
-                            <TableHead className='font-bold' >Blog Title</TableHead>
-                            <TableHead className='font-bold' >Comment By</TableHead>
-                            <TableHead className='font-bold' >Date</TableHead>
-                            <TableHead className='font-bold' >Comment</TableHead>
+                            <TableHead className='font-bold' >Role</TableHead>
+                            <TableHead className='font-bold' >Name</TableHead>
+                            <TableHead className='font-bold' >Email</TableHead>
+                            <TableHead className='font-bold' >Created On</TableHead>
+                            <TableHead className='font-bold' >Avatar</TableHead>
                             <TableHead className="font-bold text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {
-                            commentData && commentData?.comments.length > 0 ?
-                                commentData?.comments.map((com, index) => (
-                                    <TableRow key={com._id}>
+                            userData && userData?.user.length > 0 ?
+                                userData?.user.map((u, index) => (
+                                    <TableRow key={u._id}>
                                         <TableCell className="font-medium">{index + 1}</TableCell>
-                                        <TableCell className="font-medium">{com?.blogId?.title || "No Blog"}</TableCell>
-                                        <TableCell className="font-medium">{com?.user?.name || "No Name"}</TableCell>
-                                        <TableCell className="font-medium">{com?.createdAt
-                                            ? new Date(com.createdAt).toLocaleString("en-IN", {
+                                        <TableCell className="font-medium"><Badge className={u?.role === "admin" ? "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300" : "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300"}>{u?.role}</Badge></TableCell>
+                                        <TableCell className="font-medium">{u?.name || "No Name"}</TableCell>
+                                        <TableCell className="font-medium">{u?.email}</TableCell>
+                                        <TableCell className="font-medium">{u?.createdAt
+                                            ? new Date(u.createdAt).toLocaleString("en-IN", {
                                                 day: "2-digit",
                                                 month: "short",
                                                 year: "numeric",
@@ -86,27 +84,12 @@ const Comments = () => {
                                                 minute: "2-digit",
                                             })
                                             : "No Date"}</TableCell>
-                                        <TableCell className="max-w-[200px] truncate">
-                                            <TooltipProvider>
-                                                <Tooltip>
-                                                    <TooltipTrigger>
-                                                        <span className="cursor-pointer">
-                                                            {truncate(com?.comment, 40)}
-                                                        </span>
-                                                    </TooltipTrigger>
-                                                    <TooltipContent className="max-w-xs break-words">
-                                                        {com?.comment}
-                                                    </TooltipContent>
-                                                </Tooltip>
-                                            </TooltipProvider>
-                                        </TableCell>
+                                        <TableCell className="font-medium"><img className='rounded-full max-w-14 max-h-14 object-fill border' src={u?.avatar || <UserCircleIcon />} alt="user-pic" /></TableCell>
                                         <TableCell className="text-right">
                                             <DropdownMenu  >
                                                 <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="size-8"><MoreHorizontalIcon /><span className="sr-only cursor-pointer">Open menu</span></Button>} />
                                                 <DropdownMenuContent align="end">
-                                                    {/* <DropdownMenuItem ><Link className="flex items-center w-full" to={getCategoryEditRoute(com._id)} >Edit</Link></DropdownMenuItem>
-                                                    <DropdownMenuSeparator /> */}
-                                                    <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={() => handleDelete(com._id, com?.blogId?.title || "Unknown Blog")}>
+                                                    <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={() => handleDelete(u._id, u?.name || "No Name")}>
                                                         Delete
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
@@ -128,4 +111,4 @@ const Comments = () => {
     )
 }
 
-export default Comments
+export default Users
