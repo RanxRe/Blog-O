@@ -9,7 +9,7 @@ import { RouteBlogDetails } from '@/helpers/routeName'
 
 const BlogCard = ({ data }) => {
 
-    const user = useSelector(state => state.user)
+    const user = useSelector((state) => state.user)
     console.log(data)
 
     return (
@@ -26,9 +26,15 @@ const BlogCard = ({ data }) => {
                             </Avatar>
                             <span>{data.author?.name}</span>
                         </div>
-                        {user?.user.role === 'admin' &&
-                            <Badge className="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">Admin</Badge>
-                        }
+                        {data?.author?.role === 'admin' ? (
+                            <Badge className="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                                Admin
+                            </Badge>
+                        ) : data?.author?.role === 'user' ? (
+                            <Badge className="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">
+                                User
+                            </Badge>
+                        ) : null}
                     </div>
                     <div className='rounded p-2 my-2' >
                         {/* feature image */}

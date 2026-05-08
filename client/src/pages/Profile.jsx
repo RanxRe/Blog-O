@@ -17,6 +17,7 @@ import { useFetch } from '@/hooks/useFetch'
 import Loading from '@/components/Loading'
 import Dropzone from 'react-dropzone'
 import { setUser } from '@/redux/user/user.slice'
+import { Spinner } from '@/components/ui/spinner'
 
 
 const formSchema = z.object({
@@ -30,6 +31,7 @@ const Profile = () => {
 
     const [filePreview, setFilePreview] = useState()
     const [file, setFile] = useState()
+    const [profileLoading, setProfileLoading] = useState(false)
     const user = useSelector((state) => state.user)
     const { data: userData, loading, error } = useFetch(`${getEnvName("VITE_API_BASE_URL")}/user/get-user-detail/${user?.user?._id}`,
         {
@@ -68,6 +70,7 @@ const Profile = () => {
     }, [filePreview])
 
     async function onSubmit(values) {
+        setProfileLoading(true)
         try {
             const formData = new FormData()
             // for media append
@@ -85,6 +88,7 @@ const Profile = () => {
             const data = await response.json()
             if (!response.ok) {
                 showToast('error', data.message)
+                setProfileLoading(false)
                 return
             }
             dispatch(setUser(data.user))
@@ -92,6 +96,8 @@ const Profile = () => {
             showToast('success', data.message)
         } catch (error) {
             showToast('error', error.message)
+        } finally {
+            setProfileLoading(false)
         }
         console.log(values)
     }
@@ -240,7 +246,10 @@ const Profile = () => {
                                 )}
                             />
                         </FieldGroup>
-                        <Button type="submit" className="w-full cursor-pointer mt-5">Save Profile</Button>
+                        <Button type="submit" className="w-full cursor-pointer" disabled={profileLoading}>
+                            {profileLoading && <Spinner className="mr-2" />}
+                            {profileLoading ? "Saving profile... Please wait !" : "Save"}
+                        </Button>
                     </form>
                 </div>
             </CardContent>

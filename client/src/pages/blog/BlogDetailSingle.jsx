@@ -9,6 +9,7 @@ import CommentList from '@/components/CommentList'
 import CommentCount from '@/components/CommentCount'
 import LikeCount from '@/components/LikeCount'
 import RelatedBlogs from '@/components/RelatedBlogs'
+import { UserCircleIcon } from 'lucide-react'
 
 const BlogDetailSingle = () => {
 
@@ -64,11 +65,15 @@ const BlogDetailSingle = () => {
 
                         {/* Author + Date */}
                         <div className="flex items-center gap-4 mb-6">
-                            <img
-                                src={data?.blog.author.avatar}
-                                alt={data?.blog.author.name}
-                                className="w-10 h-10 rounded-full object-cover"
-                            />
+                            {data?.blog.author.avatar ? (
+                                <img
+                                    src={data?.blog.author.avatar}
+                                    alt="User Avatar"
+                                    className="w-12 h-12 rounded-full"
+                                />
+                            ) : (
+                                <UserCircleIcon className="w-5 h-5 text-gray-500" />
+                            )}
                             <div>
                                 <p className="text-sm font-medium">
                                     {data?.blog.author.name}
@@ -90,10 +95,15 @@ const BlogDetailSingle = () => {
                         <div className="border rounded-2xl p-5 shadow-sm">
                             <h2 className="font-semibold mb-3">Author</h2>
                             <div className="flex items-center gap-3">
-                                <img
-                                    src={data?.blog.author.avatar}
-                                    className="w-12 h-12 rounded-full"
-                                />
+                                {data?.blog.author.avatar ? (
+                                    <img
+                                        src={data?.blog.author.avatar}
+                                        alt="User Avatar"
+                                        className="w-12 h-12 rounded-full"
+                                    />
+                                ) : (
+                                    <UserCircleIcon className="w-5 h-5 text-gray-500" />
+                                )}
                                 <div>
                                     <p className="font-medium">
                                         {data?.blog.author.name}

@@ -133,7 +133,7 @@ export const getAllBlog = async (req, res, next) => {
   try {
     const blog = await blogModel
       .find()
-      .populate("author", "name avatar")
+      .populate("author", "name avatar role")
       .populate("category", "name slug")
       .sort({ createdAt: -1 })
       .lean()
