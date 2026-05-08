@@ -7,7 +7,7 @@ import React from 'react'
 
 const Index = () => {
 
-    const { data: blogData, loading } = useFetch(`${getEnvName(`VITE_API_BASE_URL`)}/blog/get-all`, {
+    const { data: blogData, loading } = useFetch(`${getEnvName(`VITE_API_BASE_URL`)}/blog/blogs`, {
         method: 'get',
         credentials: 'include'
     })
@@ -15,7 +15,7 @@ const Index = () => {
         return <Loading />
     }
 
-    if (!blogData || blogData.blog.length === 0) {
+    if (!blogData || blogData?.blog?.length === 0) {
         return (
             <EmptyState
                 title="No Blogs Found"

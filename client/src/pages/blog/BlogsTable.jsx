@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Loading from '@/components/Loading'
 import { showToast } from '@/helpers/showToast'
 import { getEnvName } from '@/helpers/getEnvName'
-import { RouteBlogEdit } from '@/helpers/routeName'
+import { RouteBlogDetails, RouteBlogEdit } from '@/helpers/routeName'
 
 const BlogsTable = ({ blogData, loading, setRefreshData, refreshData }) => {
 
@@ -58,7 +58,7 @@ const BlogsTable = ({ blogData, loading, setRefreshData, refreshData }) => {
                                 <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell className="font-medium">{blg?.author.name}</TableCell>
                                 <TableCell className="font-medium">{blg?.category.name}</TableCell>
-                                <TableCell className="font-medium">{blg?.title}</TableCell>
+                                <TableCell className="font-medium"><Link to={RouteBlogDetails(blg?.category?.slug, blg?.slug)} className="hover:underline">{blg?.title}</Link></TableCell>
                                 <TableCell>{blg?.slug}</TableCell>
                                 <TableCell>{new Date(blg?.createdAt).toLocaleString()}</TableCell>
                                 <TableCell className="text-right">

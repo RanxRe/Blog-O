@@ -63,9 +63,9 @@ const Comments = () => {
                         <TableRow>
                             <TableHead className='font-bold' >#</TableHead>
                             <TableHead className='font-bold' >Blog Title</TableHead>
+                            <TableHead className='font-bold' >Comment</TableHead>
                             <TableHead className='font-bold' >Comment By</TableHead>
                             <TableHead className='font-bold' >Date</TableHead>
-                            <TableHead className='font-bold' >Comment</TableHead>
                             <TableHead className="font-bold text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -76,16 +76,7 @@ const Comments = () => {
                                     <TableRow key={com._id}>
                                         <TableCell className="font-medium">{index + 1}</TableCell>
                                         <TableCell className="font-medium">{com?.blogId?.title || "No Blog"}</TableCell>
-                                        <TableCell className="font-medium">{com?.user?.name || "No Name"}</TableCell>
-                                        <TableCell className="font-medium">{com?.createdAt
-                                            ? new Date(com.createdAt).toLocaleString("en-IN", {
-                                                day: "2-digit",
-                                                month: "short",
-                                                year: "numeric",
-                                                hour: "2-digit",
-                                                minute: "2-digit",
-                                            })
-                                            : "No Date"}</TableCell>
+
                                         <TableCell className="max-w-[200px] truncate">
                                             <TooltipProvider>
                                                 <Tooltip>
@@ -100,6 +91,16 @@ const Comments = () => {
                                                 </Tooltip>
                                             </TooltipProvider>
                                         </TableCell>
+                                        <TableCell className="font-medium">{com?.user?.name || "No Name"}</TableCell>
+                                        <TableCell className="font-medium">{com?.createdAt
+                                            ? new Date(com.createdAt).toLocaleString("en-IN", {
+                                                day: "2-digit",
+                                                month: "short",
+                                                year: "numeric",
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                            })
+                                            : "No Date"}</TableCell>
                                         <TableCell className="text-right">
                                             <DropdownMenu  >
                                                 <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="size-8"><MoreHorizontalIcon /><span className="sr-only cursor-pointer">Open menu</span></Button>} />

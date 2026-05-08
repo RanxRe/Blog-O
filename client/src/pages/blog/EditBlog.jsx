@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router'
 import { RouteBlog } from '@/helpers/routeName'
 import { decode } from "entities"
+import { Spinner } from '@/components/ui/spinner'
 
 
 const EditBlog = () => {
@@ -27,6 +28,7 @@ const EditBlog = () => {
     const user = useSelector((state) => state.user)
     const [filePreview, setFilePreview] = useState()
     const [file, setFile] = useState()
+    const [blogLoading, setBlogLoading] = useState(false)
     const BASE_URL = getEnvName('VITE_API_BASE_URL')
 
     const { data: categoryData, loading, error } = useFetch(`${BASE_URL}/category/get-all`, {
@@ -99,12 +101,15 @@ const EditBlog = () => {
     }, [blogData])
 
     async function onSubmit(values) {
+        setBlogLoading(true)
         try {
             // will not change author, so removing this
             // const newValue = { ...values, author: user?.user._id }
 
             if (!file && !filePreview) {
-                return showToast('error', 'Feature Image requied.')
+                showToast('error', 'Feature Image requied.')
+                setBlogLoading(false)
+                return
             }
             const formData = new FormData()
             // for media append
@@ -122,6 +127,7 @@ const EditBlog = () => {
             const data = await response.json()
             if (!response.ok) {
                 showToast('error', data.message)
+                setBlogLoading(false)
                 return
             }
             form.reset()
@@ -131,6 +137,8 @@ const EditBlog = () => {
             showToast('success', data.message)
         } catch (error) {
             showToast('error', error.message)
+        } finally {
+            setBlogLoading(false)
         }
         console.log(values)
     }
@@ -280,7 +288,10 @@ const EditBlog = () => {
                                 )}
                             />
                         </FieldGroup>
-                        <Button type="submit" className="w-full cursor-pointer">Save</Button>
+                        <Button type="submit" className="w-full cursor-pointer" disabled={blogLoading}>
+                            {blogLoading && <Spinner className="mr-2" />}
+                            {blogLoading ? "Updating post... Please wait !" : "Update"}
+                        </Button>
 
                     </form>
                 </CardContent>

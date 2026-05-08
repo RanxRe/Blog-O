@@ -56,12 +56,23 @@ export const commentCount = async (req, res, next) => {
 
 export const getAllComments = async (req, res, next) => {
   try {
-    const comments = await commentModel
-      .find()
-      .populate("user", "name")
-      .populate("blogId", "title")
-      .sort({ createdAt: -1 })
-      .lean();
+    const user = req.user;
+    let comments;
+    if (user.role === "admin") {
+      comments = await commentModel
+        .find()
+        .populate("user", "name")
+        .populate("blogId", "title")
+        .sort({ createdAt: -1 })
+        .lean();
+    } else {
+      comments = await commentModel
+        .find({ user: user._id })
+        .populate("user", "name")
+        .populate("blogId", "title")
+        .sort({ createdAt: -1 })
+        .lean();
+    }
 
     res.status(200).json({
       success: true,

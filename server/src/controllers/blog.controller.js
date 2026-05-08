@@ -131,6 +131,38 @@ export const deleteBlog = async (req, res, next) => {
 
 export const getAllBlog = async (req, res, next) => {
   try {
+    const user = req.user;
+    let blog;
+    if (user.role === "admin") {
+      blog = await blogModel
+        .find()
+        .populate("author", "name avatar role")
+        .populate("category", "name slug")
+        .sort({ createdAt: -1 })
+        .lean()
+        .exec();
+    } else {
+      blog = await blogModel
+        .find({ author: user._id })
+        .populate("author", "name avatar role")
+        .populate("category", "name slug")
+        .sort({ createdAt: -1 })
+        .lean()
+        .exec();
+    }
+
+    res.status(200).json({
+      success: true,
+      totalCount: blog.length,
+      blog,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+export const getBlogPublic = async (req, res, next) => {
+  try {
     const blog = await blogModel
       .find()
       .populate("author", "name avatar role")

@@ -32,6 +32,7 @@ const Comments = ({ blogId, refreshData, setRefreshData }) => {
             const newValues = { ...values, blogId: blogId, user: user?.user._id }
             const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/comment/add`, {
                 method: 'post',
+                credentials: "include",
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(newValues)
             })
