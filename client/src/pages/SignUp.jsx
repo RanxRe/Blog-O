@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card"
 import logoLight from "@/assets/images/brand-logo-light.png"
@@ -15,12 +15,14 @@ import { getEnvName } from '@/helpers/getEnvName'
 import { showToast } from '@/helpers/showToast'
 import GoogleLogin from '@/components/GoogleLogin'
 import { useTheme } from '@/components/theme-provider'
+import { Spinner } from '@/components/ui/spinner'
 
 
 
 const SignUp = () => {
 
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
     const { setTheme, theme } = useTheme()
     const formSchema = z.object({
         name: z.string().min(3, "Name must be at least 3 characters"),
@@ -44,6 +46,7 @@ const SignUp = () => {
     })
 
     async function onSubmit(values) {
+        setLoading(true)
         try {
             const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/auth/signup`, {
                 method: 'post',
@@ -53,12 +56,15 @@ const SignUp = () => {
             const data = await response.json()
             if (!response.ok) {
                 showToast('error', data.message)
+                setLoading(false)
                 return
             }
             navigate(RouteSignIn)
             showToast('success', data.message)
         } catch (error) {
             showToast('error', error.message)
+        } finally {
+            setLoading(false)
         }
         console.log(values)
     }
@@ -254,11 +260,9 @@ const SignUp = () => {
 
                             </FieldGroup>
 
-                            <Button
-                                type="submit"
-                                className="w-full cursor-pointer"
-                            >
-                                Sign Up
+                            <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
+                                {loading && <Spinner className="mr-2" />}
+                                {loading ? "Creating Account... Please wait !" : "Sign Up"}
                             </Button>
 
                             <div className='text-center pt-2'>

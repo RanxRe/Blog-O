@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Field, FieldDescription, FieldGroup, FieldLabel, FieldError } from "@/components/ui/field"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card"
 import logoLight from "@/assets/images/brand-logo-light.png"
@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux'
 import { setUser } from '@/redux/user/user.slice'
 import GoogleLogin from '@/components/GoogleLogin'
 import { useTheme } from '@/components/theme-provider'
+import { Spinner } from '@/components/ui/spinner'
 
 const formSchema = z.object({
     email: z.email("Enter a valid email address"),
@@ -27,6 +28,7 @@ const SignIn = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
     const { setTheme, theme } = useTheme()
 
     const form = useForm({
@@ -38,6 +40,7 @@ const SignIn = () => {
     })
 
     async function onSubmit(values) {
+        setLoading(true)
         try {
             const response = await fetch(`${getEnvName('VITE_API_BASE_URL')}/auth/signin`, {
                 method: 'post',
@@ -48,6 +51,7 @@ const SignIn = () => {
             const data = await response.json()
             if (!response.ok) {
                 showToast('error', data.message)
+                setLoading(false)
                 return
             }
             dispatch(setUser(data.user))
@@ -55,6 +59,8 @@ const SignIn = () => {
             showToast('success', data.message)
         } catch (error) {
             showToast('error', error.message)
+        } finally {
+            setLoading(false)
         }
         console.log(values)
     }
@@ -202,11 +208,9 @@ const SignIn = () => {
 
                             </FieldGroup>
 
-                            <Button
-                                type="submit"
-                                className="w-full cursor-pointer"
-                            >
-                                Sign In
+                            <Button type="submit" className="w-full cursor-pointer" disabled={loading}>
+                                {loading && <Spinner className="mr-2" />}
+                                {loading ? "Signing In... Please wait !" : "Sign In"}
                             </Button>
 
                             <div className='text-center pt-2'>

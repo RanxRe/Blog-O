@@ -124,7 +124,7 @@ const AppSidebar = () => {
                 <SidebarGroup>
                     <SidebarGroupLabel>Catergories</SidebarGroupLabel>
                     <SidebarMenu>
-                        {categoryData && categoryData.category.length > 0
+                        {categoryData && categoryData?.category?.length > 0
                             && categoryData.category.map((cat) => <SidebarMenuItem key={cat._id} >
                                 <SidebarMenuButton>
                                     <GoDot />

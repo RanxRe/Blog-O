@@ -10,10 +10,16 @@ import { categoryRouter } from "./routes/category.routes.js";
 import { blogRouter } from "./routes/blog.routes.js";
 import { commentRouter } from "./routes/comment.routes.js";
 import { likeRouter } from "./routes/like.routes.js";
+import { apiLimiter } from "./middlewares/rateLimit.middleware.js";
+import helmet from "helmet";
+import compression from "compression";
 
 const app = express();
+app.set("trust proxy", 1);
 
 //MIDDLEWARES
+app.use(helmet());
+app.use(compression());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
@@ -23,6 +29,8 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use(apiLimiter);
 
 // ROUTES
 app.use("/api/auth", authRouter);
