@@ -4,7 +4,6 @@ import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Field, FieldError, FieldGroup, FieldLabel } from './ui/field'
 import { useForm, Controller } from 'react-hook-form'
-import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { showToast } from '@/helpers/showToast'
 import { getEnvName } from '@/helpers/getEnvName'
@@ -52,7 +51,7 @@ const Comments = ({ blogId, refreshData, setRefreshData }) => {
 
     return (
         <div className='border-t mt-5 pt-2'>
-            <h4 className='flex items-center gap-2 text-2xl font-bold'>
+            <h4 className='flex items-center gap-2 text-2xl font-bold sm:text-sm'>
                 <MessagesSquareIcon size={30} /> Comments</h4>
             {user && user?.isLoggedIn ?
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

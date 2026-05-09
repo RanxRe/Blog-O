@@ -10,7 +10,6 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-import { Link } from 'react-router'
 import logo from "@/assets/images/brand-logo-light.png"
 
 import {
@@ -34,11 +33,11 @@ import {
 import { useFetch } from '@/hooks/useFetch'
 import { getEnvName } from '@/helpers/getEnvName'
 import { useSelector } from 'react-redux'
+import SidebarLink from './SidebarLink'
 
 const AppSidebar = () => {
 
     const user = useSelector((state) => state.user)
-
     const role = user?.user?.role
     const isAdmin = role === "admin"
     const isLoggedIn = user?.isLoggedIn
@@ -63,7 +62,9 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <AiOutlineHome />
-                                <Link className="flex items-center gap-2 w-full" to={""} >Home</Link>
+                                <SidebarLink to="/" className="flex items-center gap-2 w-full">
+                                    Home
+                                </SidebarLink>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 
@@ -71,7 +72,9 @@ const AppSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton>
                                     <AiOutlineUnorderedList />
-                                    <Link className="flex items-center gap-2 w-full" to={RouteCategoriesDetails} >Categories</Link>
+                                    <SidebarLink to={RouteCategoriesDetails} className="flex items-center gap-2 w-full">
+                                        Categories
+                                    </SidebarLink>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         )}
@@ -79,14 +82,18 @@ const AppSidebar = () => {
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <ImPencil2 />
-                                <Link className="flex items-center gap-2 w-full" to={RouteBlog} >Blogs</Link>
+                                <SidebarLink to={RouteBlog} className="flex items-center gap-2 w-full">
+                                    Blogs
+                                </SidebarLink>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 
                         <SidebarMenuItem>
                             <SidebarMenuButton>
                                 <AiOutlineComment />
-                                <Link className="flex items-center gap-2 w-full" to={RouteComments} >Comments</Link>
+                                <SidebarLink to={RouteComments} className="flex items-center gap-2 w-full">
+                                    Comments
+                                </SidebarLink>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
 
@@ -94,7 +101,9 @@ const AppSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton>
                                     <AiOutlineUser />
-                                    <Link className="flex items-center gap-2 w-full" to={RouteUsers} >Users</Link>
+                                    <SidebarLink to={RouteUsers} className="flex items-center gap-2 w-full">
+                                        Users
+                                    </SidebarLink>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         )}
@@ -109,7 +118,9 @@ const AppSidebar = () => {
                             && categoryData.category.map((cat) => <SidebarMenuItem key={cat._id} >
                                 <SidebarMenuButton>
                                     <GoDot />
-                                    <Link className="flex items-center gap-2 w-full" to={RouteBlogByCategory(cat.slug)} >{cat.name}</Link>
+                                    <SidebarLink to={RouteBlogByCategory(cat.slug)} className="flex items-center gap-2 w-full">
+                                        {cat.name}
+                                    </SidebarLink>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>)
                         }

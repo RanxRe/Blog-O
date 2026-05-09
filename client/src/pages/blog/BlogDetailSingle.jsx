@@ -30,7 +30,7 @@ const BlogDetailSingle = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-10">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 py-4 sm:py-10">
             {data?.blog && (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
@@ -50,7 +50,7 @@ const BlogDetailSingle = () => {
                         <img
                             src={data?.blog.featuredImage}
                             alt={data?.blog.title}
-                            className="w-full h-[400px] object-cover rounded-2xl mb-6"
+                            className="w-full border h-56 sm:h-72 md:h-96 lg:h-[400px] object-cover rounded-2xl mb-6"
                         />
 
                         {/* Category */}
@@ -133,7 +133,7 @@ const BlogDetailSingle = () => {
                         </div>
 
                     </div>
-                    <div className='mt-10'>
+                    <div className='mt-10 sm:mt-5'>
                         <Comments blogId={data?.blog?._id} refreshData={refreshData} setRefreshData={setRefreshData} />
                         <CommentList blogId={data?.blog?._id} refreshData={refreshData} />
                     </div>
