@@ -35,8 +35,8 @@ const CommentList = ({ blogId, refreshData }) => {
                                     <AvatarFallback>{<User2Icon />}</AvatarFallback>
                                 </Avatar>
                                 <div className='mb-10'>
-                                    <p className="text-xs text-gray-500" >{comm?.user.name}</p>
-                                    <p className="text-xs text-gray-500"> {new Date(comm?.createdAt).toDateString()}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-200" >{comm?.user.name}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400"> {new Date(comm?.createdAt).toDateString()}</p>
                                     <p className='pt-3'>
                                         {comm?.comment}
                                     </p>

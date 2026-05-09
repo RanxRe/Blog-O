@@ -39,8 +39,8 @@ const BlogByCategory = () => {
     return (
         <>
             <div className='mb-6 flex flex-row items-center gap-4'>
-                <BiCategory className='text-gray-600' size={30} />
-                <h3 className='text-3xl font-bold text-gray-800'>{blogData?.categoryData.name || category}</h3>
+                <BiCategory className='text-gray-600 dark:text-gray-200' size={30} />
+                <h3 className='text-3xl font-bold text-gray-800 dark:text-gray-200'>{blogData?.categoryData.name || category}</h3>
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {blogData.blog.map((blg) => (

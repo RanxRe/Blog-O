@@ -78,7 +78,7 @@ const BlogDetailSingle = () => {
                                 <p className="text-sm font-medium">
                                     {data?.blog.author.name}
                                 </p>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-xs text-gray-500 dark:text-gray-400">
                                     {new Date(data?.blog.createdAt).toDateString()}
                                 </p>
                             </div>
@@ -108,7 +108,7 @@ const BlogDetailSingle = () => {
                                     <p className="font-medium">
                                         {data?.blog.author.name}
                                     </p>
-                                    <p className="text-sm text-gray-500">
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
                                         {data?.blog.author.role}
                                     </p>
                                 </div>
@@ -118,10 +118,10 @@ const BlogDetailSingle = () => {
                         {/* Meta Info */}
                         <div className="border rounded-2xl p-5 shadow-sm">
                             <h2 className="font-semibold mb-3">Blog Info</h2>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 dark:text-white">
                                 <strong>Category:</strong> {data?.blog.category.name}
                             </p>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 dark:text-white ">
                                 <strong>Updated:</strong>{" "}
                                 {new Date(data?.blog.updatedAt).toDateString()}
                             </p>

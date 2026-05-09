@@ -57,8 +57,8 @@ const UserDropDownMenu = () => {
             <DropdownMenuContent className='w-50' >
                 <DropdownMenuGroup>
                     <DropdownMenuLabel >
-                        <p className='text-sm font-bold text-black'>{user?.user?.name}</p>
-                        <p className='text-sm'>{user?.user?.email}</p>
+                        <p className='text-sm font-bold dark:text-gray-200'>{user?.user?.name}</p>
+                        <p className='text-sm dark:text-gray-300'>{user?.user?.email}</p>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem >

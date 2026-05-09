@@ -38,7 +38,7 @@ const BlogCard = ({ data }) => {
                     </div>
                     <div className='rounded p-2 my-2' >
                         {/* feature image */}
-                        <img className='rounded w-100 h-50' src={data?.featuredImage} alt="https://res.cloudinary.com/dylu28ncu/image/upload/v1774247661/samples/balloons.jpg" />
+                        <img className='rounded w-100 h-50' loading="lazy" decoding="async" src={data?.featuredImage} alt="https://res.cloudinary.com/dylu28ncu/image/upload/v1774247661/samples/balloons.jpg" />
                     </div>
 
                     <div >

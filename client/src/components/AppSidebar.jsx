@@ -10,7 +10,8 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-import logo from "@/assets/images/brand-logo-light.png"
+import logoLight from "@/assets/images/brand-logo-light.png"
+import logoDark from "@/assets/images/brand-logo-dark.png"
 
 import {
     AiOutlineUnorderedList,
@@ -27,6 +28,7 @@ import {
     RouteBlogByCategory,
     RouteCategoriesDetails,
     RouteComments,
+    RouteIndex,
     RouteUsers
 } from '@/helpers/routeName'
 
@@ -34,6 +36,8 @@ import { useFetch } from '@/hooks/useFetch'
 import { getEnvName } from '@/helpers/getEnvName'
 import { useSelector } from 'react-redux'
 import SidebarLink from './SidebarLink'
+import { useTheme } from './theme-provider';
+import { Link } from 'react-router'
 
 const AppSidebar = () => {
 
@@ -41,6 +45,7 @@ const AppSidebar = () => {
     const role = user?.user?.role
     const isAdmin = role === "admin"
     const isLoggedIn = user?.isLoggedIn
+    const { setTheme, theme } = useTheme()
 
     const { data: categoryData } = useFetch(
         `${getEnvName(`VITE_API_BASE_URL`)}/category/get-all`,
@@ -53,9 +58,14 @@ const AppSidebar = () => {
     return (
         <Sidebar>
             <SidebarHeader>
-                <img src={logo} alt="logo" width={100} />
+                <div className='px-2'>
+                    <Link to={RouteIndex}>
+                        <img src={theme === "dark" ? logoDark : logoLight} alt="logo" className='w-20 sm:w-50 md:w-20 rounded-md' />
+                    </Link>
+                </div>
             </SidebarHeader>
             <SidebarContent>
+                <hr />
                 {/* MAIN MENU */}
                 <SidebarGroup>
                     <SidebarMenu>

@@ -11,7 +11,7 @@ const CommentCount = ({ blogId }) => {
     // console.log(data)
 
     return (
-        <button className='flex items-center gap-2 text-gray-600'>
+        <button className='flex items-center gap-2 text-gray-600 dark:text-white'>
             <FaRegComment />
             <span>{data && data.commentCount || 0}</span>
         </button>

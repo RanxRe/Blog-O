@@ -26,11 +26,11 @@ const SearchResult = () => {
     return (
         <>
             <div className='mb-6 flex flex-row items-center gap-4'>
-                <SearchIcon className='text-gray-600' size={30} />
+                <SearchIcon className='text-gray-600 dark:text-gray-200' size={30} />
                 {blogData?.blog.length > 0 ?
-                    <h3 className='text-3xl font-bold text-gray-800'>Found: ({blogData?.blog.length}) blogs for &apos;{q}&apos;</h3>
+                    <h3 className='text-3xl font-bold text-gray-800 dark:text-gray-200'>Found: ({blogData?.blog.length}) blogs for &apos;{q}&apos;</h3>
                     :
-                    <h3 className='text-3xl font-bold text-gray-800'>No blogs found for &apos;{q}&apos;</h3>
+                    <h3 className='text-3xl font-bold text-gray-800 dark:text-gray-200'>No blogs found for &apos;{q}&apos;</h3>
                 }
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>

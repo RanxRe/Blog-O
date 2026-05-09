@@ -17,7 +17,7 @@ const CategoriesDetails = () => {
     }, [refreshData])
 
     return (
-        <div>
+        <div >
             <Card>
                 <CardHeader>
                     <div>
