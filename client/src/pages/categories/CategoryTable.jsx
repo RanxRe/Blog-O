@@ -26,7 +26,7 @@ const CategoryTable = ({ categoryData, loading, setRefreshData, refreshData }) =
                 setRefreshData(!refreshData)
                 showToast("success", data.message)
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 showToast("error", error.message)
                 return false
             }

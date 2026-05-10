@@ -10,7 +10,7 @@ import { RouteBlogDetails } from '@/helpers/routeName'
 const BlogCard = ({ data }) => {
 
     const user = useSelector((state) => state.user)
-    console.log(data)
+    // console.log(data)
 
     return (
         <Link to={RouteBlogDetails(data.category.slug, data.slug)}>

@@ -19,7 +19,7 @@ const Users = () => {
         credentials: 'include'
     }, [refreshData])
 
-    console.log(userData)
+    // console.log(userData)
 
     const handleDelete = async (id, name) => {
         const c = confirm(`Are you sure to DELETE user "${name}" ?`)
@@ -36,7 +36,7 @@ const Users = () => {
                 setRefreshData(!refreshData)
                 showToast("success", data.message)
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 showToast("error", error.message)
                 return false
             }

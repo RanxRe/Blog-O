@@ -39,7 +39,7 @@ const GoogleLogin = () => {
             dispatch(setUser(data.user))
             navigate(RouteIndex)
             showToast('success', data.message)
-            console.log(googleResponse)
+            // console.log(googleResponse)
         } catch (error) {
             showToast('error', error.message)
         }

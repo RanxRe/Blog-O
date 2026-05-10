@@ -70,7 +70,7 @@ const EditCategories = () => {
         } catch (error) {
             showToast('error', error.message)
         }
-        console.log(values)
+        // console.log(values)
     }
 
     return (

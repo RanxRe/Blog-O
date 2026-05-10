@@ -99,7 +99,7 @@ const Profile = () => {
         } finally {
             setProfileLoading(false)
         }
-        console.log(values)
+        // console.log(values)
     }
 
     const handleFileSelection = (files) => {

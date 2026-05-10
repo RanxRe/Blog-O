@@ -18,7 +18,7 @@ const Comments = () => {
         credentials: 'include'
     }, [refreshData])
 
-    console.log(commentData)
+    // console.log(commentData)
 
     const truncate = (text, length = 30) => {
         if (!text) return "";
@@ -40,7 +40,7 @@ const Comments = () => {
                 setRefreshData(!refreshData)
                 showToast("success", data.message)
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 showToast("error", error.message)
                 return false
             }

@@ -18,7 +18,7 @@ const RelatedBlogs = ({ category, slug }) => {
             </div>
         )
     }
-    console.log(data)
+    // console.log(data)
     return (
         <>
             <h2 className="font-semibold mb-3">Related Blogs</h2>

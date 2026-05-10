@@ -54,7 +54,7 @@ const AppSidebar = () => {
             credentials: 'include'
         }
     )
-    console.log(user)
+    // console.log(user)
     return (
         <Sidebar>
             <SidebarHeader>

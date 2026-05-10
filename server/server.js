@@ -3,5 +3,6 @@ import { connectDB } from "./src/config/db.js";
 import { ENV } from "./src/lib/env.js";
 
 const PORT = ENV.PORT || 5000;
-app.listen(PORT, () => console.log(`Server is running @ http://localhost:${PORT} `));
-connectDB();
+connectDB().then(() => {
+  app.listen(PORT, () => console.log(`Server is running @ http://localhost:${PORT} `));
+});

@@ -26,7 +26,7 @@ const BlogsTable = ({ blogData, loading, setRefreshData, refreshData }) => {
                 setRefreshData(!refreshData)
                 showToast("success", data.message)
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 showToast("error", error.message)
                 return false
             }
@@ -34,7 +34,7 @@ const BlogsTable = ({ blogData, loading, setRefreshData, refreshData }) => {
             return false
         }
     }
-    console.log(blogData?.blog)
+    // console.log(blogData?.blog)
 
     if (loading) return <Loading />
     return (

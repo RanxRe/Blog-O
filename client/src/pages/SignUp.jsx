@@ -66,7 +66,7 @@ const SignUp = () => {
         } finally {
             setLoading(false)
         }
-        console.log(values)
+        // console.log(values)
     }
 
     return (

@@ -18,6 +18,7 @@ import { useNavigate, useParams } from 'react-router'
 import { RouteBlog } from '@/helpers/routeName'
 import { decode } from "entities"
 import { Spinner } from '@/components/ui/spinner'
+import Loading from '@/components/Loading'
 
 
 const EditBlog = () => {
@@ -40,7 +41,7 @@ const EditBlog = () => {
         method: 'get',
         credentials: 'include'
     }, [blogId])
-    console.log(blogData)
+    // console.log(blogData)
     const formSchema = z.object({
         title: z.string().min(3, "Title must be at least 3 characters"),
         category: z.string().min(3, "Category must be at least 3 characters"),
@@ -140,7 +141,11 @@ const EditBlog = () => {
         } finally {
             setBlogLoading(false)
         }
-        console.log(values)
+        // console.log(values)
+    }
+
+    if (loading) {
+        return <Loading />
     }
     return (
         <div className='flex justify-center items-center'>
@@ -270,7 +275,6 @@ const EditBlog = () => {
                                 control={form.control}
                                 render={({ field, fieldState }) => (
                                     <Field data-invalid={fieldState.invalid}>
-                                        {console.log(field.value)}
                                         <FieldLabel htmlFor="blogContent">Write post</FieldLabel>
 
                                         <Editor

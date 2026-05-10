@@ -43,7 +43,7 @@ const Comments = ({ blogId, refreshData, setRefreshData }) => {
             setRefreshData(!refreshData)
             showToast('success', data.message)
             form.reset()
-            console.log(newValues)
+            // console.log(newValues)
         } catch (error) {
             showToast('error', error.message)
         }
