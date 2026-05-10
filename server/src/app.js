@@ -35,7 +35,9 @@ app.use(
 
         imgSrc: ["'self'", "data:", "blob:", "https://res.cloudinary.com"],
 
-        connectSrc: ["'self'"],
+        mediaSrc: ["'self'", "blob:", "data:"],
+
+        connectSrc: ["'self'", "https://res.cloudinary.com"],
 
         fontSrc: ["'self'", "data:"],
       },

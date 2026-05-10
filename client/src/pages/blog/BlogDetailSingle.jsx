@@ -19,7 +19,6 @@ const BlogDetailSingle = () => {
         method: 'get',
         credentials: 'include',
     }, [slug, category])
-    console.log(data)
 
     if (loading) {
         return (
