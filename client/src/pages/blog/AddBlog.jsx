@@ -54,11 +54,14 @@ const AddBlog = () => {
 
     const handleFileSelection = (files) => {
         if (!files || files.length == 0) return
-        const file = files[0]
-        const preview = URL.createObjectURL(file)
+        // const file = files[0]
+        const selectedFile = files[0]
+        // const preview = URL.createObjectURL(file)
         // need to send file(image) into form so we are setting it into file variable
-        setFile(file)
-        setFilePreview(preview)
+        // setFile(file)
+        setFile(selectedFile)
+        // setFilePreview(preview)
+        setFilePreview(URL.createObjectURL(selectedFile))
     }
 
     const handleEditorData = (event, editor) => {
@@ -77,6 +80,14 @@ const AddBlog = () => {
             form.setValue("slug", "")
         }
     }, [blogTitle, form])
+
+    useEffect(() => {
+        return () => {
+            if (filePreview) {
+                URL.revokeObjectURL(filePreview);
+            }
+        };
+    }, [filePreview]);
 
     async function onSubmit(values) {
         setBlogLoading(true)
@@ -228,7 +239,17 @@ const AddBlog = () => {
                                         <div {...getRootProps()}>
                                             <input {...getInputProps()} />
                                             <div className=' my-2 cursor-pointer flex overflow-hidden justify-center items-center w-36 h-36 border-2 border-dashed rounded' >
-                                                <img src={filePreview} />
+                                                {filePreview ? (
+                                                    <img
+                                                        src={filePreview}
+                                                        alt="Preview"
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                ) : (
+                                                    <span className="text-sm">
+                                                        Upload Image
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
 
