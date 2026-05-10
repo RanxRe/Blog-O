@@ -42,7 +42,7 @@ const Topbar = () => {
 
             <div className='w-[500px]' >
                 <div className={`md:relative md:block  absolute bg-white dark:bg-zinc-950 left-0 w-full md:top-0 top-16 md:p-0 p-5 ${showSearch ? 'block' : 'hidden'}`}>
-                    <SearchBox />
+                    <SearchBox setShowSearch={setShowSearch} />
                 </div>
             </div>
 

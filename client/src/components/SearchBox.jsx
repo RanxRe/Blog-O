@@ -3,7 +3,7 @@ import { Input } from './ui/input'
 import { useNavigate } from 'react-router'
 import { RouteSearch } from '@/helpers/routeName'
 
-const SearchBox = () => {
+const SearchBox = ({ setShowSearch }) => {
 
     const navigate = useNavigate()
     const [query, setQuery] = useState()
@@ -14,6 +14,7 @@ const SearchBox = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         navigate(RouteSearch(query))
+        setShowSearch(false)
 
     }
     return (
