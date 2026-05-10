@@ -33,7 +33,7 @@ app.use(
 
         styleSrc: ["'self'", "'unsafe-inline'"],
 
-        imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+        imgSrc: ["'self'", "data:", "blob:", "https://res.cloudinary.com"],
 
         connectSrc: ["'self'"],
 
