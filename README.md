@@ -1,5 +1,7 @@
 # Blog-O 🚀
 
+# Website URL - https://blog-o.onrender.com
+
 A modern full-stack blog application built using the MERN stack with authentication, blog management, categories, comments, likes, dark mode, responsive UI, and secure backend practices.
 
 ---
