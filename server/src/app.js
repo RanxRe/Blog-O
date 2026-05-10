@@ -23,7 +23,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //MIDDLEWARES
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+
+        styleSrc: ["'self'", "'unsafe-inline'"],
+
+        imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+
+        connectSrc: ["'self'"],
+
+        fontSrc: ["'self'", "data:"],
+      },
+    },
+  }),
+);
 app.use(compression());
 app.use(morgan("dev"));
 app.use(express.json());

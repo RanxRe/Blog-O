@@ -1,0 +1,20 @@
+{
+  "name": "blog-o",
+  "private": true,
+  "description": "A modern full-stack blog application built using the MERN stack with authentication, blog management, categories, comments, likes, dark mode, responsive UI, and secure backend practices.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && npm install && npm run build",
+    "start": "cd server && npm install && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RanxRe/Blog-O.git"
+  },
+  "author": "Ranjeet Kumar Mahato",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RanxRe/Blog-O/issues"
+  },
+  "homepage": "https://github.com/RanxRe/Blog-O#readme"
+}

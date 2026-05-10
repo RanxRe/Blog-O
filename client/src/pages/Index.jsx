@@ -14,6 +14,7 @@ const Index = () => {
     if (loading) {
         return <Loading />
     }
+    // console.log(blogData)
 
     if (!blogData || blogData?.blog?.length === 0) {
         return (
