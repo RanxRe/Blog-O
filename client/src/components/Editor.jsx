@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { ClassicEditor, Autosave, Essentials, Paragraph, LinkImage, Link, ImageBlock, ImageToolbar, BlockQuote, Bold, CloudServices, ImageUpload, ImageInsertViaUrl, AutoImage, Table, TableToolbar, Mention, Heading, ImageTextAlternative, ImageCaption, ImageStyle, Indent, IndentBlock, ImageInline, Italic, List, MediaEmbed, TableCaption, TodoList, Underline, ImageUtils, ImageEditing, Fullscreen, Emoji, Autoformat, TextTransformation, Strikethrough, Code, Subscript, Superscript, FontBackgroundColor, FontColor, FontFamily, FontSize, Highlight, HorizontalLine, CodeBlock, Alignment, Style, GeneralHtmlSupport, ShowBlocks, SourceEditing, HtmlComment, BalloonToolbar, BlockToolbar } from 'ckeditor5';
+import { ClassicEditor, Autosave, Essentials, Paragraph, LinkImage, Link, ImageBlock, ImageToolbar, BlockQuote, Bold, CloudServices, ImageUpload, ImageInsertViaUrl, AutoImage, Table, TableToolbar, Mention, Heading, ImageTextAlternative, ImageCaption, ImageStyle, Indent, IndentBlock, ImageInline, Italic, List, MediaEmbed, TableCaption, TodoList, Underline, ImageUtils, ImageEditing, Fullscreen, Autoformat, TextTransformation, Strikethrough, Code, Subscript, Superscript, FontBackgroundColor, FontColor, FontFamily, FontSize, Highlight, HorizontalLine, CodeBlock, Alignment, Style, GeneralHtmlSupport, ShowBlocks, SourceEditing, HtmlComment, BalloonToolbar, BlockToolbar } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
 
@@ -62,7 +62,6 @@ const Editor = ({ value, onChange }) => {
                         'superscript',
                         'code',
                         '|',
-                        'emoji',
                         'horizontalLine',
                         'link',
                         'mediaEmbed',
@@ -81,7 +80,7 @@ const Editor = ({ value, onChange }) => {
                     ],
                     shouldNotGroupWhenFull: false
                 },
-                plugins: [Alignment, Autoformat, AutoImage, Autosave, BalloonToolbar, BlockQuote, BlockToolbar, Bold, CloudServices, Code, CodeBlock, Emoji, Essentials, FontBackgroundColor, FontColor, FontFamily, FontSize, Fullscreen, GeneralHtmlSupport, Heading, Highlight, HorizontalLine, HtmlComment, ImageBlock, ImageCaption, ImageEditing, ImageInline, ImageInsertViaUrl, ImageStyle, ImageTextAlternative, ImageToolbar, ImageUpload, ImageUtils, Indent, IndentBlock, Italic, Link, LinkImage, List, MediaEmbed, Mention, Paragraph, ShowBlocks, SourceEditing, Strikethrough, Style, Subscript, Superscript, Table, TableCaption, TableToolbar, TextTransformation, TodoList, Underline],
+                plugins: [Alignment, Autoformat, AutoImage, Autosave, BalloonToolbar, BlockQuote, BlockToolbar, Bold, CloudServices, Code, CodeBlock, Essentials, FontBackgroundColor, FontColor, FontFamily, FontSize, Fullscreen, GeneralHtmlSupport, Heading, Highlight, HorizontalLine, HtmlComment, ImageBlock, ImageCaption, ImageEditing, ImageInline, ImageInsertViaUrl, ImageStyle, ImageTextAlternative, ImageToolbar, ImageUpload, ImageUtils, Indent, IndentBlock, Italic, Link, LinkImage, List, MediaEmbed, Mention, Paragraph, ShowBlocks, SourceEditing, Strikethrough, Style, Subscript, Superscript, Table, TableCaption, TableToolbar, TextTransformation, TodoList, Underline],
                 licenseKey: LICENSE_KEY,
                 balloonToolbar: ['bold', 'italic', '|', 'link', '|', 'bulletedList', 'numberedList'],
                 blockToolbar: ['fontSize', 'fontColor', 'fontBackgroundColor', '|', 'bold', 'italic', '|', 'link', 'insertTable', '|', 'bulletedList', 'numberedList', 'outdent', 'indent'],

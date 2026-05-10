@@ -31,7 +31,7 @@ app.use(
 
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
 
-        styleSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
 
         imgSrc: ["'self'", "data:", "blob:", "https://res.cloudinary.com"],
 
@@ -39,7 +39,7 @@ app.use(
 
         connectSrc: ["'self'", "https://res.cloudinary.com"],
 
-        fontSrc: ["'self'", "data:"],
+        fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
       },
     },
   }),

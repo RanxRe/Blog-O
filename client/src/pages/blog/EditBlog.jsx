@@ -273,6 +273,9 @@ const EditBlog = () => {
                                                         src={filePreview}
                                                         alt="Preview"
                                                         className="w-full h-full object-cover"
+                                                        onError={(e) => {
+                                                            console.log("Image preview failed:", e.target.src);
+                                                        }}
                                                     />
                                                 ) : (
                                                     <span>Select Image</span>
