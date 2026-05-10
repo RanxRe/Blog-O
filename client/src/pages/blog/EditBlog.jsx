@@ -37,7 +37,7 @@ const EditBlog = () => {
         credentials: 'include'
     })
 
-    const { data: blogData } = useFetch(`${BASE_URL}/blog/edit/${blogId}`, {
+    const { data: blogData, loading: blogFetching } = useFetch(`${BASE_URL}/blog/edit/${blogId}`, {
         method: 'get',
         credentials: 'include'
     }, [blogId])
@@ -144,7 +144,7 @@ const EditBlog = () => {
         // console.log(values)
     }
 
-    if (loading) {
+    if (loading || blogFetching) {
         return <Loading />
     }
     return (
@@ -256,7 +256,15 @@ const EditBlog = () => {
                                         <div {...getRootProps()}>
                                             <input {...getInputProps()} />
                                             <div className=' my-2 cursor-pointer flex overflow-hidden justify-center items-center w-36 h-36 border-2 border-dashed rounded' >
-                                                <img src={filePreview} />
+                                                {filePreview ? (
+                                                    <img
+                                                        src={filePreview}
+                                                        alt="Preview"
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                ) : (
+                                                    <span>Select Image</span>
+                                                )}
                                             </div>
                                         </div>
 
@@ -264,10 +272,6 @@ const EditBlog = () => {
                                 </Dropzone>
                             </div>
                             {/* </Controller> */}
-
-                            {/* <div className='mb-3' >
-                                
-                            </div> */}
 
                             {/* BLOG CONTENT FIELD */}
                             <Controller
