@@ -29,15 +29,35 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
 
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "https://apis.google.com",
+          "https://accounts.google.com",
+        ],
 
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
 
-        imgSrc: ["'self'", "data:", "blob:", "https://res.cloudinary.com"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "blob:",
+          "https://res.cloudinary.com",
+          "https://lh3.googleusercontent.com",
+        ],
 
         mediaSrc: ["'self'", "blob:", "data:"],
 
-        connectSrc: ["'self'", "https://res.cloudinary.com"],
+        connectSrc: [
+          "'self'",
+          "https://res.cloudinary.com",
+          "https://apis.google.com",
+          "https://accounts.google.com",
+          "https://oauth2.googleapis.com",
+        ],
+
+        frameSrc: ["'self'", "https://accounts.google.com"],
 
         fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
       },
