@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from './ui/button'
+// import { Button } from './ui/button'
 import { FcGoogle } from "react-icons/fc";
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '@/helpers/firebase';
@@ -57,9 +57,14 @@ const GoogleLogin = () => {
         }
     }
     return (
-        <Button variant='outline' type='button' className='w-full cursor-pointer' onClick={handleLogin} >
+        <button
+            // variant='outline' 
+            type='button'
+            className='w-full cursor-pointer'
+            disabled={loading}
+            onClick={handleLogin} >
             <FcGoogle /> {loading ? "Please wait..." : "Continue with Google"}
-        </Button>
+        </button>
     )
 }
 
