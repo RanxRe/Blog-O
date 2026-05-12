@@ -20,7 +20,7 @@ const GoogleLogin = () => {
         if (loading) return
         try {
             setLoading(true)
-            await auth.authStateReady?.();
+            // await auth.authStateReady?.();
             const googleResponse = await signInWithPopup(auth, provider)
             // we have to modify body coz we will get data from googleResponse
             const user = googleResponse.user
@@ -48,7 +48,10 @@ const GoogleLogin = () => {
             console.log(error)
             console.log(error.code)
             console.log(error.message)
-            showToast('error', error.message)
+            if (error.code !== "auth/popup-closed-by-user") {
+                showToast("error", error.message)
+            }
+
         } finally {
             setLoading(false)
         }
