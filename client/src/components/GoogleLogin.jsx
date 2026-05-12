@@ -39,13 +39,16 @@ const GoogleLogin = () => {
             dispatch(setUser(data.user))
             navigate(RouteIndex)
             showToast('success', data.message)
-            // console.log(googleResponse)
+            console.log(googleResponse)
         } catch (error) {
+            console.log(error)
+            console.log(error.code)
+            console.log(error.message)
             showToast('error', error.message)
         }
     }
     return (
-        <Button variant='outline' className='w-full cursor-pointer' onClick={handleLogin} >
+        <Button variant='outline' type='button' className='w-full cursor-pointer' onClick={handleLogin} >
             <FcGoogle />
             Continue with Google
         </Button>
