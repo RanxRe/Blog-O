@@ -1,5 +1,10 @@
 // Import the functions you need from the SDKs you need
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getEnvName } from "./getEnvName.js";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19,6 +24,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+setPersistence(auth, browserLocalPersistence).catch((error) => {
+  console.log(error);
+});
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: "select_account",
