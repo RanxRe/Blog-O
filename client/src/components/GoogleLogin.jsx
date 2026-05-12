@@ -11,13 +11,16 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/user/user.slice';
 
 const GoogleLogin = () => {
-
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleLogin = async () => {
+        // prevent multiple popups
+        if (loading) return
         try {
-            // await auth.authStateReady?.();
+            setLoading(true)
+            await auth.authStateReady?.();
             const googleResponse = await signInWithPopup(auth, provider)
             // we have to modify body coz we will get data from googleResponse
             const user = googleResponse.user
@@ -46,12 +49,13 @@ const GoogleLogin = () => {
             console.log(error.code)
             console.log(error.message)
             showToast('error', error.message)
+        } finally {
+            setLoading(false)
         }
     }
     return (
         <Button variant='outline' type='button' className='w-full cursor-pointer' onClick={handleLogin} >
-            <FcGoogle />
-            Continue with Google
+            <FcGoogle /> {loading ? "Please wait..." : "Continue with Google"}
         </Button>
     )
 }
