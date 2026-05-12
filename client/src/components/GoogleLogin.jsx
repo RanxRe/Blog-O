@@ -20,7 +20,6 @@ const GoogleLogin = () => {
         const handleRedirectResult = async () => {
             try {
                 const result = await getRedirectResult(auth)
-                if (!result) return
                 if (!result) {
                     setCheckingRedirect(false)
                     return
