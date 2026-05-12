@@ -10,16 +10,16 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from '../src/components/theme-provider'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <Provider store={store}>
-        <PersistGate loading={<div>Loading...</div>} persistor={persistor} >
-          <TooltipProvider>
-            <ToastContainer />
-            <App />
-          </TooltipProvider>
-        </PersistGate>
-      </Provider>
-    </ThemeProvider>
-  </StrictMode>
+
+  <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+    <Provider store={store}>
+      <PersistGate loading={<div>Loading...</div>} persistor={persistor} >
+        <TooltipProvider>
+          <ToastContainer />
+          <App />
+        </TooltipProvider>
+      </PersistGate>
+    </Provider>
+  </ThemeProvider>
+
 )
