@@ -12,6 +12,7 @@ import { setUser } from '@/redux/user/user.slice';
 
 const GoogleLogin = () => {
     const [loading, setLoading] = useState(false)
+    const [checkingRedirect, setCheckingRedirect] = useState(true)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -20,6 +21,11 @@ const GoogleLogin = () => {
             try {
                 const result = await getRedirectResult(auth)
                 if (!result) return
+                if (!result) {
+                    setCheckingRedirect(false)
+                    return
+                }
+
                 const user = result.user
                 const bodyData = {
                     name: user.displayName,
@@ -39,6 +45,7 @@ const GoogleLogin = () => {
                 )
                 const data = await response.json()
                 if (!response.ok) {
+                    setCheckingRedirect(false)
                     showToast('error', data.message)
                     return
                 }
@@ -49,6 +56,7 @@ const GoogleLogin = () => {
                 console.log(error)
                 showToast('error', error.message)
             } finally {
+                setCheckingRedirect(false)
                 setLoading(false)
             }
         }
@@ -101,7 +109,7 @@ const GoogleLogin = () => {
             variant='outline'
             type='button'
             className='w-full cursor-pointer'
-            disabled={loading}
+            disabled={loading || checkingRedirect}
             onClick={handleLogin} >
             <FcGoogle /> {loading ? "Please wait..." : "Continue with Google"}
         </Button>
