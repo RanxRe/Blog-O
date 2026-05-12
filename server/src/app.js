@@ -35,6 +35,7 @@ app.use(
           "'unsafe-eval'",
           "https://apis.google.com",
           "https://accounts.google.com",
+          "https://www.googleapis.com",
         ],
 
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
@@ -58,6 +59,7 @@ app.use(
           "https://identitytoolkit.googleapis.com",
           "https://securetoken.googleapis.com",
           "https://firestore.googleapis.com",
+          "https://www.googleapis.com",
         ],
 
         frameSrc: ["'self'", "https://accounts.google.com", "https://blog-o-eaef2.firebaseapp.com"],

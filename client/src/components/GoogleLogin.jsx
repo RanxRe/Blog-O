@@ -17,6 +17,7 @@ const GoogleLogin = () => {
 
     const handleLogin = async () => {
         try {
+            // await auth.authStateReady?.();
             const googleResponse = await signInWithPopup(auth, provider)
             // we have to modify body coz we will get data from googleResponse
             const user = googleResponse.user
